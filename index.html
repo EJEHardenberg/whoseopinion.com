@@ -12,11 +12,35 @@
 			p{
 				font-style: italic;
 			}
+			html{
+				background-color: #ddd;
+			}
+			header{
+				margin: 0px;	
+				outline: solid thin black;
+			}
+			.redstreak, .bluestreak, .whitestreak{
+				min-height: 1em;
+				margin: 0;
+				padding: 0;
+				text-align: center;
+			}
+			.redstreak{
+				background-color: red;
+			}
+			.bluestreak{
+				background-color: blue;
+			}
+			.whitestreak{
+				background-color: white;
+			}
 		</style>
 	</head>
 	<body>
 		<header>
-			<h1>Your Opinion Matters</h1>
+			<div class="redstreak"></div>
+			<h1 class="whitestreak">Your Opinion Matters</h1>
+			<div class="bluestreak"></div>
 		</header>
 
 		<div>
