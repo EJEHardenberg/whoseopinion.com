@@ -1,0 +1,1 @@
+html{background-color:#ddd}html header{margin:0px;outline:solid thin black}html header h1{background-color:white}html header div:first-child{background-color:red}html header div:last-child{background-color:blue}html header>*{min-height:1em;margin:0;padding:0;text-align:center}html p,html h2{text-align:center;font-style:italic}
