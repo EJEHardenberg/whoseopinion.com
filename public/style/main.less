@@ -1,11 +1,13 @@
+@questionRadius: 2em;
+@fontSize: 130%;
 
 html{
 	background-color: #ddd;
-
-	header{
+	font-size: @fontSize;
+	header, .question{
 		margin: 0px;	
 		outline: solid thin black;
-		h1{
+		h1,p{
 			background-color: white;	
 		}
 		div{
@@ -28,6 +30,50 @@ html{
 		text-align: center;
 		font-style: italic;
 	}	
+	.question{
+		border-radius: @questionRadius;
+		border-right: solid thick white;
+		border-left: solid thick white;
+		margin: 10px;
+		margin-left: 0px;
+		width: 30em;
+		outline: none;
+		div:first-child{
+			border-top-left-radius: @questionRadius;
+			border-top-right-radius: @questionRadius;
+			font-style: italic;
+			text-align: right;
+			padding-right: 5px;
+		}
+		p{
+			min-height: @questionRadius;
+		}
+		div:last-child{
+			color: white;
+			border-bottom-right-radius: @questionRadius;
+			border-bottom-left-radius: @questionRadius;
+			form{
+				label,input[type=radio],input[type=submit], button{
+					cursor: pointer;
+				}	
+				div{
+					margin-left: 10%;
+					width: 80%;
+					input[type=submit],button{
+						min-width: 10em;
+						border-color: lightblue;
+						border-radius: 1em;
+					}
+					input[type=submit]:hover,button:hover{
+						padding-left: 5px;
+						padding-right: 5px;
+						border-color: white;
+						color: green;
+					}
+				}
+			}
+		}
+	}
 }
 
 
