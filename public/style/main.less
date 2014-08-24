@@ -31,9 +31,6 @@ html{
 		font-style: italic;
 	}	
 	.question{
-		border-radius: @questionRadius;
-		border-right: solid thick white;
-		border-left: solid thick white;
 		margin: 10px;
 		margin-left: 0px;
 		width: 30em;
@@ -43,10 +40,15 @@ html{
 			border-top-right-radius: @questionRadius;
 			font-style: italic;
 			text-align: right;
-			padding-right: 5px;
+			span{
+				position: relative;
+				right: 20px;
+			}
 		}
 		p{
+			font-style: normal;
 			min-height: @questionRadius;
+
 		}
 		div:last-child{
 			color: white;
