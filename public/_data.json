@@ -1,0 +1,7 @@
+{
+	"statistics" : {
+		"layout" : false,
+		"excludeJQuery" : false,
+		"loadMapLib" : true
+	}
+}

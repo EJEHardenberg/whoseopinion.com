@@ -5,6 +5,16 @@
 		"excludeJQuery" : false,
 		"noJS" : false,
 		"javascriptPath" : "/js",
-		"questionPartialUsed" : false
+		"questionPartialUsed" : false,
+		"loadMapLib" : false,
+		"dummydata" : {
+			"statistics" : {
+    			"MD": {"fill": "red"},
+    			"VA": {"fill": "orange"},
+    			"GA": {"fill": "blue"},
+    			"MO": {"fill": "green"},
+	    		"CA": {"fill": "olive"}
+  			}
+		}
 	}
 }
