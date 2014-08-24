@@ -5,3 +5,4 @@ $(document).ready(function() {
   		stateHoverStyles: {fill: 'white'}
     });
 });
+
