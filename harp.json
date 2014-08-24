@@ -1,6 +1,10 @@
 {
 	"globals" : {
 		"title" : "Whose Opinion?",
-		"description" : "Site created to express public sentiment and the peoples voice on topics and issues today"
+		"description" : "Site created to express public sentiment and the peoples voice on topics and issues today",
+		"excludeJQuery" : false,
+		"noJS" : false,
+		"javascriptPath" : "/js",
+		"questionPartialUsed" : false
 	}
 }
