@@ -1,23 +1,27 @@
 @questionRadius: 2em;
 @fontSize: 130%;
+@bgColor: cornflowerblue; /* Color of the U.N. Flag */
+@topStripeColor: red;
+@middleStripeColor: white;
+@bottomStripeColor: blue;
 
 html{
-	background-color: #ddd;
+	background-color: @bgColor;
 	font-size: @fontSize;
 	header, .question{
 		margin: 0px;	
 		outline: solid thin black;
 		h1,p{
-			background-color: white;	
+			background-color: @middleStripeColor;	
 		}
 		div{
 
 		}
 		div:first-child{
-			background-color: red;
+			background-color: @topStripeColor;
 		}
 		div:last-child{
-			background-color: blue;
+			background-color: @bottomStripeColor;
 		}
 		> *{
 			min-height: 1em;
@@ -51,7 +55,7 @@ html{
 
 		}
 		div:last-child{
-			color: white;
+			color: @middleStripeColor;
 			border-bottom-right-radius: @questionRadius;
 			border-bottom-left-radius: @questionRadius;
 			form{
@@ -63,13 +67,13 @@ html{
 					width: 80%;
 					input[type=submit],button{
 						min-width: 10em;
-						border-color: lightblue;
+						border-color: lighten(@bottomStripeColor, 20px);
 						border-radius: 1em;
 					}
 					input[type=submit]:hover,button:hover{
 						padding-left: 5px;
 						padding-right: 5px;
-						border-color: white;
+						border-color: @middleStripeColor;
 						color: green;
 					}
 				}
@@ -77,7 +81,7 @@ html{
 		}
 	}
 	#colorbox{
-		background-color: white;
+		background-color: @middleStripeColor;
 	}
 	#statistics{
 		div{
