@@ -2,9 +2,14 @@
 /* Allow a Script to not include any JS at all*/
 if( !noJS ) {
 	/* Allow a script that doesn't use jQuery to not have it loaded */
-	if( !excludeJQuery ){ %>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script><% 
+	if( !excludeJQuery ){ 
+		if( environment == "development" ){ %>
+			<script type="text/javascript" src="/lib/jquery-v2.1.1/jquery.min.js"></script>
+			<script type="text/javascript" src="/lib/jquery-color-v1.4.33/jquery.colorbox-min.js"></script><% 
+		}else{ %>
+			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script><% 
+		}
 
 		if( loadMapLib ){ %>
 			<script type="text/javascript" src="/lib/us-map-1.0.1/lib/raphael.js"></script>
