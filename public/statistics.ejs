@@ -1,19 +1,22 @@
 <head>
 <%- partial("_inc/styles") %>
-</head>
-<div id="statistics">
+</head><div id="statistics">
 	<script type="text/javascript">
 		window.dummyMapInfo = <%- JSON.stringify(dummydata.statistics) %>
 	</script>
 	<%- partial("_inc/scripts.ejs") %>
-	<div id="map" style="width: 300px; height: 200px;"></div>
+	<div id="map" style="width: 400px; height: 200px;"></div>
 	<div>
+		
 		<ul><% 
-			var ranks = ["red", "orange","blue","olive","green"]
+			var ranks = ["red", "orange","olive","green","blue"]
 			for(r in ranks){
 				var color = ranks[r] %>
-				<li style="background-color: <%= color %>"></a><%
-			} %>
+				<li style="background-color: <%= color %>"><span><%= labels[r] %></span><%
+				} %>
 		</ul>
+		<p>
+			Ever wonder where the people who think like you are?
+		</p>
 	</div>
 </div>

@@ -22,7 +22,6 @@ function findResource(head, tail, filter) {
 }
 function resourceExists(base, ext){
     filter = new RegExp("(^" + base + "/" + current.path.join("/")  + "\." + ext + "$)","i")     
-    console.log(filter)
     return findResource(public, "/", filter) 
 }
 

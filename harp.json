@@ -19,6 +19,7 @@
 		},
 		"credentials" : {
 			"sometokenorsomething" : "$ENVIRONMENTALVARIABLE"
-		}
+		},
+		"labels" :  ["Outraged","Disagree","Don't Care","Agree","Support"]
 	}
 }
