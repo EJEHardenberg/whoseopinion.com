@@ -3,7 +3,9 @@ jQuery( document ).ready(function( $ ) {
 	$('button[name=loadstats]').click(function(evt){
 		evt.preventDefault()
 		$.colorbox({
-			href:"statistics.html"
+			href:"statistics.html",
+			scrolling: false,
+			onComplete: function(){ $.colorbox.resize() }
 		});
 		return false
 	})
