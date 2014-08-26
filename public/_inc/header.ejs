@@ -1,0 +1,22 @@
+<header>
+	<div></div>
+	<h1>Your Opinion Matters</h1>
+	<div></div>
+</header>
+<nav>
+	<h3>And It matters on</h3>
+	<ul>
+		<li><a href="/">Popular</a></li>
+		<%
+		for(idx in categories){
+			var category = categories[idx]
+			function captilize(str){
+				return str.charAt(0).toUpperCase() + str.substr(1)
+			}
+			%>
+			<li><a href="/category/<%= category %>"><%= captilize(category) %></a><%
+		} 
+		%>
+	</ul>
+</nav>
+<pre>Dear testers, what do you think of this type of navigation? can you suggest categorys?</pre>

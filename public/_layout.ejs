@@ -15,12 +15,7 @@
 		<%- partial("_inc/styles") %>
 	</head>
 	<body id="<% current.path.join("-") %>">
-		<header>
-			<div></div>
-			<h1>Your Opinion Matters</h1>
-			<div></div>
-		</header>
-		<pre>Dear testers, do you like how big it is or should it be smaller like on the current splash page of whoseopinion.com?</pre>
+		<%- partial("_inc/header") %>
 		<div id="content">
 			<%- yield %>
 		</div>

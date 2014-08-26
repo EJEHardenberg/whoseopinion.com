@@ -20,6 +20,8 @@
 		"credentials" : {
 			"sometokenorsomething" : "$ENVIRONMENTALVARIABLE"
 		},
-		"labels" :  ["Outraged","Disagree","Don't Care","Agree","Support"]
+		"labels" :  ["Outraged","Disagree","Don't Care","Agree","Support"],
+		"definitions" : ["","","","",""],
+		"categories" : ["politics", "religion", "people", "food" ]
 	}
 }
