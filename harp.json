@@ -5,6 +5,7 @@
 		"excludeJQuery" : false,
 		"noJS" : false,
 		"javascriptPath" : "/js",
+		"cssPath" :"/style",
 		"questionPartialUsed" : false,
 		"loadMapLib" : false,
 		"dummydata" : {
@@ -15,6 +16,9 @@
     			"MO": {"fill": "green"},
 	    		"CA": {"fill": "olive"}
   			}
+		},
+		"credentials" : {
+			"sometokenorsomething" : "$ENVIRONMENTALVARIABLE"
 		}
 	}
 }
