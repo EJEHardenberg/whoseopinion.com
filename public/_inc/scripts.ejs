@@ -5,10 +5,14 @@ if( !noJS ) {
 	if( !excludeJQuery ){ 
 		if( environment == "development" ){ %>
 			<script type="text/javascript" src="/lib/jquery-v2.1.1/jquery.min.js"></script>
-			<script type="text/javascript" src="/lib/jquery-color-v1.4.33/jquery.colorbox-min.js"></script><% 
+			<script type="text/javascript" src="/lib/jquery-color-v1.4.33/jquery.colorbox-min.js"></script>
+			<script type="text/javascript" src="/lib/tooltipster-v3.0.5/jquery.tooltipster.min.js"></script>
+			<% 
 		}else{ %>
 			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script><% 
+			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
+			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/js/jquery.tooltipster.min.js"></script>
+			<% 
 		}
 
 		if( loadMapLib ){ %>
