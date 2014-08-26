@@ -1,11 +1,13 @@
 <head>
 <%- partial("_inc/styles") %>
-</head><div id="statistics">
+</head>
+<div id="statistics">
 	<script type="text/javascript">
 		window.dummyMapInfo = <%- JSON.stringify(dummydata.statistics) %>
 	</script>
 	<%- partial("_inc/scripts.ejs") %>
-	<div id="map" style="width: 400px; height: 200px;"></div>
+	<h2>Opinion Demographics</h2>
+	<div id="map" style="width: 400px; height: 250px;"></div>
 	<div>
 		
 		<ul><% 
