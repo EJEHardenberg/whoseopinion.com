@@ -14,7 +14,7 @@
 				return str.charAt(0).toUpperCase() + str.substr(1)
 			}
 			%>
-			<li><a href="/category/<%= category %>"><%= captilize(category) %></a><%
+			<li><a href="/category/?c=<%= category %>"><%= captilize(category) %></a><%
 		} 
 		%>
 	</ul>

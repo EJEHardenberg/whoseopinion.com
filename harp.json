@@ -12,9 +12,9 @@
 			"statistics" : {
     			"MD": {"fill": "red"},
     			"VA": {"fill": "orange"},
-    			"GA": {"fill": "blue"},
-    			"MO": {"fill": "green"},
-	    		"CA": {"fill": "olive"}
+    			"GA": {"fill": "green"},
+    			"MO": {"fill": "olive"},
+	    		"CA": {"fill": "blue"}
   			}
 		},
 		"credentials" : {
