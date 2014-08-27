@@ -8,7 +8,6 @@
 
 html{
 	background-color: @bgColor;
-	
 	font-size: @fontSize;
 
 	h1,h2,h3{
@@ -16,6 +15,7 @@ html{
 	}
 	body{
 		margin: 0px;
+		height: 100vh;
 	}
 	.question{
 		zoom: .75;
@@ -23,6 +23,7 @@ html{
 	header, .question{
 		margin: 0px;	
 		outline: solid thin black;
+		outline: none;
 		h1,p{
 			padding: 5px;
 			background-color: @middleStripeColor;	
@@ -41,27 +42,50 @@ html{
 		}
 	}
 	nav{
+		min-height: 100vh;
+		height: 100%;
+		display: inline-block;
 		padding: @gutterSize;
-		background-color: white	;
-		border-bottom-right-radius: @questionRadius;
-		border-bottom-left-radius: @questionRadius;
+		background-color: @bottomStripeColor;
+		color: @middleStripeColor;
+		vertical-align: top;
+		margin-right: 0px;
+		padding-right: 0px;
 		h3{
 			padding: 0px;
 			margin: 0px;
 			display: inline-block;
 		}
 		ul{
-			display: inline-block;
 			margin: 0px;
 			padding: 0px;
 			list-style-type: none;
 			li{
 				font-style: italic;
-				display: inline-block;
-				padding: @gutterSize/2;
-				margin: @gutterSize/2;
+				padding: 0;
+				margin: 0;
+				a{
+					border-bottom-left-radius: @questionRadius;
+					border-top-left-radius: @questionRadius;
+					padding: @gutterSize/2;
+					width: 100%;
+					display: block;
+					color: @middleStripeColor;
+					-o-transition:.5s;
+		  			-ms-transition:.5s;
+		  			-moz-transition:.5s;
+		  			-webkit-transition:.5s;
+		  			/* ...and now for the proper property */
+		  			transition:.5s;
+				}
+				a:hover{
+					background-color: @bgColor;
+				}
 			}
 		}
+	}
+	#content{
+		display: inline-block;
 	}
 	p, h2{
 		text-align: center;
