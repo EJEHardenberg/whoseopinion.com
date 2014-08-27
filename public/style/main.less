@@ -4,10 +4,14 @@
 @topStripeColor: red;
 @middleStripeColor: white;
 @bottomStripeColor: blue;
+@gutterSize: 10px;
 
 html{
 	background-color: @bgColor;
 	font-size: @fontSize;
+	body{
+		margin: 0px;
+	}
 	header, .question{
 		margin: 0px;	
 		outline: solid thin black;
@@ -31,6 +35,10 @@ html{
 		}
 	}
 	nav{
+		padding: @gutterSize;
+		background-color: white	;
+		border-bottom-right-radius: @questionRadius;
+		border-bottom-left-radius: @questionRadius;
 		h3{
 			padding: 0px;
 			margin: 0px;
@@ -39,12 +47,13 @@ html{
 		ul{
 			display: inline-block;
 			margin: 0px;
+			padding: 0px;
 			list-style-type: none;
 			li{
 				font-style: italic;
 				display: inline-block;
-				padding: 5px;
-				margin: 5px;
+				padding: @gutterSize/2;
+				margin: @gutterSize/2;
 			}
 		}
 	}
@@ -53,7 +62,7 @@ html{
 		font-style: italic;
 	}	
 	.question{
-		margin: 10px;
+		margin: @gutterSize;
 		margin-left: 0px;
 		width: 30em;
 		outline: none;
@@ -89,8 +98,8 @@ html{
 						border-radius: 1em;
 					}
 					input[type=submit]:hover,button:hover{
-						padding-left: 5px;
-						padding-right: 5px;
+						padding-left: @gutterSize/2;
+						padding-right: @gutterSize/2;
 						border-color: @middleStripeColor;
 						color: green;
 					}
