@@ -5,6 +5,7 @@ jQuery( document ).ready(function( $ ) {
 		$.colorbox({
 			href:"statistics.html",
 			scrolling: false,
+			transition: "fade",
 			onComplete: function(){ $.colorbox.resize() }
 		});
 		return false
