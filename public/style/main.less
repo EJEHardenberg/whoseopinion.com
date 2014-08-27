@@ -178,20 +178,43 @@ html{
 }
 .vote{
 	margin-top: @gutterSize/2;
-	outline: thin black solid;
+	outline: thin white solid;
+	padding: @gutterSize/2;
+	display: inline-block;
+	-o-transition:.5s;
+	-ms-transition:.5s;
+	-moz-transition:.5s;
+	-webkit-transition:.5s;
+	/* ...and now for the proper property */
+	transition:.5s;
 }
 .vote-Outraged{
 	background-color: @outrageColor;
+	&:hover{
+		background-color: darken(@outrageColor,20);	
+	}
 }
 .vote-Disagree{
 	background-color: @disagreeColor;
+	&:hover{
+		background-color: darken(@disagreeColor,20);	
+	}
 }
 .vote-Neutral{
 	background-color: @neutralColor;
+	&:hover{
+		background-color: darken(@neutralColor, 20);
+	}
 }
 .vote-Agree{
 	background-color: @agreeColor;
+	&:hover{
+		background-color: darken(@agreeColor,20);
+	}
 }
 .vote-Support{
 	background-color: @supportColor;
+	&:hover{
+		background-color: darken(@supportColor,20);
+	}
 }
