@@ -28,4 +28,11 @@ function resourceExists(base, ext){
 if( resourceExists(cssPath,"css") ){
     %><link rel="stylesheet" type="text/CSS" href="<%= cssPath + "/" + current.path.join("/") + ".css" %>"><%
 }
+if( environment == "development" ){ %>
+    <link rel="stylesheet" type="text/css" href="/lib/tooltipster-v3.0.5/tooltipster.min.css">
+    <link rel="stylesheet" type="text/css" href="/lib/tooltipster-v3.0.5/tooltipster-light.min.css"><%
+}else{ %>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/css/tooltipster.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/css/themes/tooltipster-light.min.css"><%
+}
 %>

@@ -1,5 +1,6 @@
 {
 	"index" : {
+		"loadTooltipster": true
 	},
 	"statistics" : {
 		"layout" : false,
