@@ -12,6 +12,7 @@ jQuery( document ).ready(function( $ ) {
 	})
 	$('span[name=vote-help]').tooltipster({
 		contentAsHTML: true,
-		content: $('#vote-help').html()
+		content: $('#vote-help').html(),
+		position: "bottom"
 	})
 })
