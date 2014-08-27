@@ -14,7 +14,7 @@
 			var ranks = ["red", "orange","olive","green","blue"]
 			for(r in ranks){
 				var color = ranks[r] %>
-				<li style="background-color: <%= color %>"><span><%= labels[r] %></span><%
+				<li class="vote vote-<%= labels[r] %>"><span><%= labels[r] %></span><%
 				} %>
 		</ul>
 		<p>

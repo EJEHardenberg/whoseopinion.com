@@ -5,6 +5,11 @@
 @middleStripeColor: white;
 @bottomStripeColor: blue;
 @gutterSize: 10px;
+@outrageColor: red;
+@disagreeColor: orange;
+@neutralColor: olive;
+@agreeColor: green;
+@supportColor: blue;
 
 p, h2{
 	text-align: center;
@@ -171,4 +176,22 @@ html{
 		min-width: 10em;
 	}
 }
-
+.vote{
+	margin-top: @gutterSize/2;
+	outline: thin black solid;
+}
+.vote-Outraged{
+	background-color: @outrageColor;
+}
+.vote-Disagree{
+	background-color: @disagreeColor;
+}
+.vote-Neutral{
+	background-color: @neutralColor;
+}
+.vote-Agree{
+	background-color: @agreeColor;
+}
+.vote-Support{
+	background-color: @supportColor;
+}
