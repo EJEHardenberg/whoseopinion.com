@@ -10,4 +10,8 @@ jQuery( document ).ready(function( $ ) {
 		});
 		return false
 	})
+	$('span[name=vote-help]').tooltipster({
+		contentAsHTML: true,
+		content: $('#vote-help').html()
+	})
 })

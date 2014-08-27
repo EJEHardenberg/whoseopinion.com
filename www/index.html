@@ -13,6 +13,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel='stylesheet' href="/style/main.css" />
 		
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/css/tooltipster.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/css/themes/tooltipster-light.min.css">
+		
+		
 	</head>
 	<body id="">
 		<header>
@@ -62,23 +66,59 @@
 		</label>
 	
 		<div>
+
 			<button name="loadstats">Other Opinions</button>
 			<input type="submit" value="Voice Your Opinion" />
+			<span name="vote-help">(?)</span>
 		</div>
 		</form>
 	</div>
 </div>
 
+
+
+<div id="tutorial-dialogs" style="display: none;">
+	<div id="welcome">
+		<p>
+			Welcome! Is this your first time?
+		</p>
+		<ul>
+			<li><a name="yes" href="#yes">Yes</a>
+			<li><a name="no" href="#no">No</a>
+		</ul>
+	</div>
+	<div id="vote-help">
+		<p>
+			If you think a statement is inflamatory, insensitive, or just plain
+			wrong, vote <b>Outraged</b>. If you find that you think the person is
+			wrong, but that you could see their opinion, agree to <b>disagree</b>.
+		</p>
+		<p>
+			What's the difference between <b>agree</b> and <br>support</b>? Simple,
+			if you agree with a statement, but probably wouldn't debate or argue
+			with someone about it and agree to disagree, <b>agree</b> is the right
+			choice for you. If you'd be more inclined to quarrel with someone and
+			try to change their opinion, <b>support</b>'s for you.
+		</p>
+	</div>
+</div>
 		</div>
 		<footer>
-			<h2><a href="https://github.com/EJEHardenberg/whoseopinion.com/blob/master/LICENSE">License</a></h2>
-		</footer>
+	<ul>
+		<li><a href="http://www.ethanjoachimeldridge.info">Created By E.J. Eldridge</a>
+		<li><a href="http://github.com/EJEHardenberg/whoseopinion.com">Source Code</a>
+		<li><a href="https://github.com/EJEHardenberg/whoseopinion.com/blob/master/LICENSE">License</a>
+		<li><a href="/privacy-data-policy">Privacy &amp; Data Policy</a>
+	</ul>
+</footer>
 		
 			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.colorbox/1.4.33/jquery.colorbox-min.js"></script>
 			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/tooltipster/3.0.5/js/jquery.tooltipster.min.js"></script>
 			
 		<script type="text/javascript" src="/js/question.js"></script>
+		<script type="text/javascript" src="/js/tutorial.js"></script>
+		<link rel="stylesheet" type="text/css" href="/style/tutorial.css">
 	            	<script type="text/javascript" src="/js/index.js"></script>
 	            	
 	</body>
