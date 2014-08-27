@@ -8,5 +8,4 @@ jQuery( document ).ready(function( $ ) {
 
 	/* At any point they stop, remember their choice and do not bother them again */
 
-	
 })
