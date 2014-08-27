@@ -28,7 +28,10 @@ if( !noJS ) {
 	if( public.questionPartialUsed ){ %>
 		<script type="text/javascript" src="/js/question.js"></script><% 
 	}
-
+	if( public.tutorialInUse ){ %>
+		<script type="text/javascript" src="/js/tutorial.js"></script>
+		<link rel="stylesheet" type="text/css" href="/style/tutorial.css"><% 
+	}
 
 } 
 
