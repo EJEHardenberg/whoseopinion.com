@@ -125,7 +125,12 @@ html{
 			form{
 				label,input[type=radio],input[type=submit], button{
 					cursor: pointer;
+					padding: @gutterSize/2;
 				}	
+				label{
+					margin-top: @gutterSize/2;
+					margin-bottom: @gutterSize/2;
+				}
 				div{
 					margin-left: 10%;
 					width: 80%;
@@ -177,9 +182,7 @@ html{
 	}
 }
 .vote{
-	margin-top: @gutterSize/2;
 	outline: thin white solid;
-	padding: @gutterSize/2;
 	display: inline-block;
 	-o-transition:.5s;
 	-ms-transition:.5s;
