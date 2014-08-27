@@ -6,6 +6,11 @@
 @bottomStripeColor: blue;
 @gutterSize: 10px;
 
+p, h2{
+	text-align: center;
+	font-style: italic;
+}	
+
 html{
 	background-color: @bgColor;
 	font-size: @fontSize;
@@ -87,10 +92,7 @@ html{
 	#content{
 		display: inline-block;
 	}
-	p, h2{
-		text-align: center;
-		font-style: italic;
-	}	
+	
 	.question{
 		margin: @gutterSize;
 		margin-left: 0px;
@@ -134,6 +136,20 @@ html{
 						color: green;
 					}
 				}
+			}
+		}
+	}
+	footer{
+		width: 100%;
+		background-color: white;
+		margin-left: 0;
+		padding-top: @gutterSize;
+		padding-bottom: @gutterSize;
+		ul{
+			list-style-type: none;
+			li{
+				display: inline-block;
+				margin: @gutterSize;
 			}
 		}
 	}
