@@ -94,7 +94,7 @@ html{
 					width: 80%;
 					input[type=submit],button{
 						min-width: 10em;
-						border-color: lighten(@bottomStripeColor, 20px);
+						border-color: lighten(@bottomStripeColor, 20);
 						border-radius: 1em;
 					}
 					input[type=submit]:hover,button:hover{
@@ -109,7 +109,13 @@ html{
 	}
 	#colorbox{
 		background-color: @middleStripeColor;
+		outline: none;
+	}
+	#cboxClose{
+		cursor: pointer;
+		border-color: lighten(@bottomStripeColor, 20);
+		border-radius: 1em;
+		min-width: 10em;
 	}
 }
-
 
