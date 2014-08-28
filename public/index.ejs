@@ -1,11 +1,24 @@
 <section name="questions">
-<%- partial("_inc/question",
-	{ 	category: "Politics", 
-		text: "The FCC should reclassify the internet as a common carrier."
-	}) 
+<% 
+	for (var i = 10; i >= 0; i--) {%><%-
+		partial("_inc/question",
+		{ 	category: "Politics", 
+			text: "The FCC should reclassify the internet as a common carrier."
+		}) %><%
+	};
 %>
+
 </section>
 <section name="information">
+<p>
+	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod gravida faucibus. Nullam ac sodales lorem, a tincidunt turpis. Mauris in mi tempor, sollicitudin ipsum semper, consequat nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla quis sem nec diam sodales sollicitudin. Suspendisse imperdiet nisl id hendrerit euismod. Cras varius quis mauris ac placerat. Nulla ut odio nunc. Nam et consectetur sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam id ante eget magna semper maximus.
+	</p>
+<p>
+Ut eu ipsum maximus, condimentum mi ac, dapibus massa. Ut posuere convallis viverra. Nam varius sollicitudin pulvinar. Sed ullamcorper fringilla odio, sed sagittis dui euismod id. Nullam euismod sem odio, a molestie lacus consectetur id. Suspendisse dui ex, dapibus sed dapibus vel, tincidunt a arcu. Nunc ultrices, justo sit amet venenatis tincidunt, felis sapien rutrum turpis, in pretium mauris sem sit amet tortor.
+</p>
+<p>
+Curabitur efficitur velit dui, eget condimentum odio pharetra vel. Donec ultricies pellentesque vestibulum. Cras suscipit leo vitae malesuada lacinia. Aenean viverra enim non facilisis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur dignissim ex lectus, in suscipit diam sodales a. Quisque pulvinar aliquet luctus.
+</p>
 
 </section>
 <%- partial("_inc/tutorial") %>

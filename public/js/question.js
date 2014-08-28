@@ -15,4 +15,10 @@ jQuery( document ).ready(function( $ ) {
 		content: $('#vote-help').html(),
 		position: "bottom"
 	})
+	$('span[name=more-info]').click(function(){
+		$.get("question-info.html", function(e){
+			$('section[name=information]').html(e)	
+		})
+		
+	})
 })
