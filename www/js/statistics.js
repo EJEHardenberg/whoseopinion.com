@@ -4,6 +4,7 @@ $(document).ready(function() {
   		stateHoverStyles: {fill: 'white'},
   		showLabels: true
     });
+    /* This would be loaded via ajax */
     var stateMapping = {
         "vote-Outraged" : ['MD'],
         "vote-Disagree" : ["VA"],
