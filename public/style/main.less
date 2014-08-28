@@ -1,4 +1,4 @@
-@questionRadius: 2em;
+@questionRadius: .75em;
 @fontSize: 130%;
 @bgColor: cornflowerblue; /* Color of the U.N. Flag */
 @topStripeColor: red;
@@ -78,6 +78,7 @@ html{
 					border-bottom-left-radius: @questionRadius;
 					border-top-left-radius: @questionRadius;
 					padding: @gutterSize/2;
+					padding-right: @gutterSize*2;
 					width: 100%;
 					display: block;
 					color: @middleStripeColor;
@@ -182,7 +183,14 @@ html{
 	}
 }
 .vote{
-	outline: thin white solid;
+	border-top: thin solid white;
+	border-bottom: thin solid white;
+	&:first-child{
+		border-left: thin solid white;
+	}
+	&:nth-child(5){
+		border-right: thin solid white;
+	}
 	display: inline-block;
 	-o-transition:.5s;
 	-ms-transition:.5s;

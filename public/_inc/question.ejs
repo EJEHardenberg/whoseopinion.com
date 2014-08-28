@@ -1,16 +1,16 @@
 <div class="question" >
 	<div>
-		<span><a href="/category/?c=<%= category %>"><%= category %></a></span>
+		<span name="more-info">More Info</span>
 	</div>
 	<p><%= text %></p>
 	<div>
-		<form>
+		<form><!--
 	<% for(var i= 0; i < 5; i++){ %>
-		<label class="vote vote-<%= labels[i] %>">
+		--><label class="vote vote-<%= labels[i] %>">
 			<input type="radio" name="opinion" <%= i == 2 ? "checked" : "" %> value="<%- i -2 %>" /><%= labels[i] %>
-		</label>
+		</label><!-- 
 	<% } %>
-		<div>
+		--><div>
 
 			<button name="loadstats">Other Opinions</button>
 			<input type="submit" value="Voice Your Opinion" />
