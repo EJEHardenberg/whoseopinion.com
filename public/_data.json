@@ -6,5 +6,10 @@
 		"layout" : false,
 		"excludeJQuery" : false,
 		"loadMapLib" : true
+	},
+	"question-info" : {
+		"layout" : false,
+		"excludeJQuery" : true,
+		"loadTooltipster" : false
 	}
 }
