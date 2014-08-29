@@ -123,11 +123,12 @@ html{
 			max-width: @questionWidth + 2vw;
 			min-height: @bodyHeight;
 			overflow: auto;
+			overflow-x: hidden;
 			max-height: @bodyHeight;
 		}
 		&[name=information]{
 			max-height: @bodyHeight;
-			max-width: 100 - @questionWidth - 2vw - @navWidth - 5vw;
+			max-width: 100 - @questionWidth - 2vw - @navWidth - 7vw;
 			min-width: 25em;
 			overflow: auto;
 		}
@@ -266,4 +267,11 @@ html{
 			}
 		}
 	}
+}
+#content{
+	vertical-align: top;
+	display: inline-block;
+	max-width: 86vw;
+	max-height: @bodyHeight + 1vh;
+	
 }
