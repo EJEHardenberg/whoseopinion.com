@@ -12,7 +12,7 @@ jQuery( document ).ready(function( $ ) {
 	})
 	$('button[name=loadstats]').click(function(evt){
 		evt.preventDefault()
-		$.get("statistics.html", function(e){
+		$.get("info.html", function(e){
 			$('article').html(e)
 			$('article').animate({left: "50vw", },500, function(){
 				sideScreenShowing = true	

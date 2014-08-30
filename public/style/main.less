@@ -3,13 +3,33 @@
 	padding: 0;
 }
 
-@bgColor: #eee;
+/* color pallette */
+@baseColor: #00B233;
+@baseColor2: #00661D;
+@midColor: #19FF5A;
+@midComplement: #660000;
+@complimentColor: #B20000;
+
+@bgColor: @baseColor;
 @bottom: 1;
 @middle: 2;
 @top: 3;
 @gutter: 10px;
 @headerHeight: 2em;
+@headerPad: .25em;
+@helpButtonBg: @complimentColor;
+
+.Transition{
+	-o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+	/* ...and now for the proper property */
+    transition:.5s;
+}
+
 html{
+
 	height: 100%;
 	position: relative;
 	overflow-x: hidden;
@@ -17,20 +37,65 @@ html{
 		height:  100%;
 		background-color: @bgColor;
 		header{
+			background-color: @midComplement;
+			color: white;
 			text-align: center;
 			z-index: @bottom;
 			width: 100%;
 			display: block;
 			height: @headerHeight;
+			padding: @headerPad;
+			span{
+				.Transition;
+				width: 8em;
+				border: thin solid black;
+				/* font-size: 26px; */
+				z-index: @middle;
+				margin-top: 2px;
+				height: 80%;
+				float: left;
+				background-color: @helpButtonBg;
+				color: white;
+				vertical-align: middle;
+				&:hover{
+					color: green;
+					cursor: pointer;
+					border: thin dashed green;
+					background-color: lighten(@helpButtonBg,10);
+				}
+			}
 		}
 		/* Left navigation */
 		nav{
+			padding: @headerPad;
+			padding-right: 0;
+			background-color: @baseColor2;
 			z-index: @middle;
 			width: 8em;
 			float: left;
 			height: 100%;
 			display: inline-block;
 			vertical-align: top;
+			text-align: right;
+			ul{
+				width: 100%;
+				li{
+					padding: @gutter;
+					padding-right: 0;
+					a{
+						.Transition;
+						border-top-left-radius: .25em;
+						border-bottom-left-radius: .25em;
+						background-color: @midColor;
+						padding: @gutter/2;
+						padding-right: @gutter + @headerHeight;
+						&:hover{
+							background-color: @baseColor;
+						}
+					}
+					
+				}
+			}
 		}
 		/* Main content area,  */
 		section{

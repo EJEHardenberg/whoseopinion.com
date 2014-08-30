@@ -2,7 +2,7 @@
 	"index" : {
 		"loadTooltipster": true
 	},
-	"statistics" : {
+	"info" : {
 		"layout" : false,
 		"excludeJQuery" : false,
 		"loadMapLib" : true
