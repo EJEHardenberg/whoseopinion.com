@@ -1,30 +1,15 @@
 <section>
 <% 
-	for (var i = 10; i >= 0; i--) {%><%-
+	for (var i = questions.length - 1; i >= 0; i--){
+	 	var q = questions[i] %><%-
 		partial("_inc/question",
-		{ 	category: "Politics", 
-			text: "The FCC should reclassify the internet as a common carrier."
+		{ 	category: q.category, 
+			text: q.statement
 		}) %><%
 	};
 %>
 </section>
 <article>
 	<hr>
-		<p>
-	Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod gravida faucibus. Nullam ac sodales lorem, a tincidunt turpis. Mauris in mi tempor, sollicitudin ipsum semper, consequat nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Nulla quis sem nec diam sodales sollicitudin. Suspendisse imperdiet nisl id hendrerit euismod. Cras varius quis mauris ac placerat. Nulla ut odio nunc. Nam et consectetur sem. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam id ante eget magna semper maximus.
-	</p>
-<p>
-Ut eu ipsum maximus, condimentum mi ac, dapibus massa. Ut posuere convallis viverra. Nam varius sollicitudin pulvinar. Sed ullamcorper fringilla odio, sed sagittis dui euismod id. Nullam euismod sem odio, a molestie lacus consectetur id. Suspendisse dui ex, dapibus sed dapibus vel, tincidunt a arcu. Nunc ultrices, justo sit amet venenatis tincidunt, felis sapien rutrum turpis, in pretium mauris sem sit amet tortor.
-</p>
-<p>
-Curabitur efficitur velit dui, eget condimentum odio pharetra vel. Donec ultricies pellentesque vestibulum. Cras suscipit leo vitae malesuada lacinia. Aenean viverra enim non facilisis egestas. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Curabitur dignissim ex lectus, in suscipit diam sodales a. Quisque pulvinar aliquet luctus.
-</p>
-<p>
-Nullam efficitur augue eget justo fermentum, nec semper velit lobortis. Aliquam risus dui, lobortis sed dui vitae, sodales venenatis lacus. Aliquam rhoncus quam sit amet erat bibendum, id lacinia elit rhoncus. Suspendisse potenti. Fusce eget mauris nec lacus faucibus tincidunt consequat in lectus. Vivamus consequat felis metus, pulvinar tempor enim fermentum vitae. Vivamus fermentum lorem quis congue ullamcorper. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Nulla hendrerit tristique posuere. Fusce quam tortor, suscipit vel ullamcorper non, congue quis arcu. Integer odio enim, porta ut ligula sed, ullamcorper rutrum quam. Nunc vel nunc dapibus sem rutrum laoreet. Proin nunc purus, sollicitudin quis nisi eu, placerat venenatis nisl. Nunc at augue eget velit semper consectetur. Integer dignissim enim lectus, id pretium sem sodales nec.
-</p>
-
-<p>
-Vivamus elit nisl, vulputate in auctor nec, facilisis sit amet est. Nunc id erat tortor. Pellentesque a sodales eros. Nulla at dictum mi. Donec viverra magna suscipit efficitur pulvinar. Nullam finibus nisl lorem, ac blandit libero ultrices et. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc ut arcu eu erat malesuada porttitor. Duis facilisis vitae quam non hendrerit. Aenean fermentum tristique ipsum, id dignissim arcu feugiat molestie. Nulla consectetur ultricies mi, sed dapibus nulla tristique eu. Nulla et venenatis arcu. Maecenas et pharetra lacus, ut fringilla ipsum. Maecenas pharetra erat sed pellentesque scelerisque. Vivamus congue mauris sed auctor molestie. Integer nec convallis dui.
-</p>
-
+	<div></div>
 </article>

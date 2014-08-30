@@ -4,8 +4,8 @@
 }
 
 /* color pallette */
-@baseColor: #00B233;
-@baseColor2: #00661D;
+@baseColor2: #00B233;
+@baseColor: #00661D;
 @midColor: #19FF5A;
 @midComplement: #660000;
 @complimentColor: #B20000;
@@ -45,30 +45,38 @@ html{
 			display: block;
 			height: @headerHeight;
 			padding: @headerPad;
-			span{
-				.Transition;
-				width: 8em;
-				border: thin solid black;
-				/* font-size: 26px; */
-				z-index: @middle;
-				margin-top: 2px;
-				height: 80%;
-				float: left;
-				background-color: @helpButtonBg;
-				color: white;
-				vertical-align: middle;
-				&:hover{
-					color: green;
-					cursor: pointer;
-					border: thin dashed green;
-					background-color: lighten(@helpButtonBg,10);
-				}
-			}
+			
 		}
 		/* Left navigation */
+		span[name='vote-help']{
+			text-align: center;
+			padding-top: @headerPad*2;
+			font-weight: bold;
+			padding-bottom: @headerPad;
+			.Transition;
+			width: 8em;
+			border: thin solid black;
+			/* font-size: 26px; */
+			z-index: @middle;
+			height: @headerHeight - @headerPad*2;
+			float: left;
+			background-color: @helpButtonBg;
+			color: white;
+			
+			&:hover{
+				color: green;
+				cursor: pointer;
+				border: thin dashed green;
+				background-color: lighten(@helpButtonBg,10);
+			}
+		}
 		nav{
+			top: 0;
+			position: fixed;
 			padding: @headerPad;
 			padding-right: 0;
+			padding-top: 0;
+			padding-left: 0;
 			background-color: @baseColor2;
 			z-index: @middle;
 			width: 8em;
@@ -77,7 +85,7 @@ html{
 			display: inline-block;
 			vertical-align: top;
 			text-align: right;
-			ul{
+			h3 + ul{
 				width: 100%;
 				li{
 					padding: @gutter;
@@ -124,15 +132,13 @@ html{
 			}
 		}
 		footer{
-			text-align: center;
-			z-index: @bottom;
-			width: 100%;
-			ul{
-				list-style-type: none;
-				li{
-					display: inline-block;
-					padding: @gutter;
-				}
+			background-color: @midColor;
+			position: fixed;
+			bottom: 0;
+			text-align: left;
+			li{
+				padding: .25em;
+				font-size: 12px;
 			}
 		}
 	}

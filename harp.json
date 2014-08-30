@@ -22,6 +22,28 @@
 		},
 		"labels" :  ["Outraged","Disagree","Neutral","Agree","Support"],
 		"definitions" : ["","","","",""],
-		"categories" : ["politics", "religion", "technology", "environment", "international" ]
+		"categories" : ["politics", "religion", "technology", "environment", "international" ],
+		"questions" : [
+			{
+				"statement" : "The FCC should reclassify the internet as a common carrier.",
+				"category" : "technology"
+			},
+			{
+				"statement" : "Israel has committed War Crimes and should be condemned",
+				"category" : "international"
+			},
+			{
+				"statement" : "There is no such thing as white privilege",
+				"category" : "politics"
+			},
+			{
+				"statement" : "God does not exist",
+				"category" : "religion"
+			},
+			{
+				"statement" : "We need to focus on sustainability to survive the next hundred years",
+				"category" : "environment"
+			}
+		]
 	}
 }
