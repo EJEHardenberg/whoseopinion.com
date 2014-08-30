@@ -18,9 +18,9 @@
 	</head>
 	<body id="<% current.path.join("-") %>">
 		<%- partial("_inc/header") %>
-		<div id="content">
+		<section>
 		<%- yield %>
-		</div>
+		</section>
 		<%- partial("_inc/footer") %>
 		<%- partial("_inc/scripts") %>
 	</body>

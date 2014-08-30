@@ -1,277 +1,74 @@
-@questionRadius: .75em;
-@fontSize: 20px;
-@bgColor: grey; /*cornflowerblue; /* Color of the U.N. Flag */
-@topStripeColor: white; /* red */
-@middleStripeColor: white; /* white */
-@bottomStripeColor: black; /* blue */
-@gutterSize: 10px;
-@outrageColor: red;
-@disagreeColor: orange;
-@neutralColor: olive;
-@agreeColor: green;
-@supportColor: blue;
-@questionWidth: 36vw;;
-@navWidth: 10vw;
-@headerHeight: 20vh;
-@bodyHeight: 65vh;
-@footerHeight: 20vh;
+*{
+	margin: 0;
+	padding: 0;
+}
 
-p, h2{
-	text-align: center;
-	font-style: italic;
-}	
-
+@bgColor: #eee;
+@bottom: 1;
+@middle: 2;
+@top: 3;
+@gutter: 10px;
+@headerHeight: 2em;
 html{
-	background-color: white;
-	font-size: @fontSize;
-	height: 100vh;
-	overflow: hidden;
-
-	h1,h2,h3{
-		font-family: "Big Caslon", "Book Antiqua", "Palatino Linotype", Georgia, serif;
-	}
+	height: 100%;
+	position: relative;
+	overflow-x: hidden;
 	body{
+		height:  100%;
 		background-color: @bgColor;
-		margin: 0px;
-		height: @bodyHeight;
-		height: 100%;
-		min-height: @bodyHeight
-	}
-	header, .question{
-		margin: 0px;	
-		outline: solid thin black;
-		outline: none;
-		max-height: @headerHeight;
-		h1,p{
-			padding: 5px;
-			background-color: @middleStripeColor;	
-		}
-		div:first-child{
-			background-color: @topStripeColor;
-		}
-		div:last-child{
-			background-color: @bottomStripeColor;
-			em{
-				color: mix(@bottomStripeColor, @middleStripeColor);
-			}
-		}
-		> *{
-			min-height: 1em;
-			margin: 0;
-			padding: 0;
-			text-align: center;	
-		}
-	}
-	nav{
-		max-height: @bodyHeight;
-		min-width: @navWidth;
-		height: 100%;
-		display: inline-block;
-		padding: @gutterSize;
-		background-color: @bottomStripeColor;
-		color: @middleStripeColor;
-		vertical-align: top;
-		margin-right: 0px;
-		padding-right: 0px;
-		h3{
-			padding: 0px;
-			margin: 0px;
-			display: inline-block;
-		}
-		ul{
-			margin: 0px;
-			padding: 0px;
-			list-style-type: none;
-			li{
-				font-style: italic;
-				padding: 0;
-				margin: 0;
-				a{
-					border-bottom-left-radius: @questionRadius;
-					border-top-left-radius: @questionRadius;
-					padding: @gutterSize/2;
-					padding-right: @gutterSize*2;
-					width: 100%;
-					display: block;
-					color: @middleStripeColor;
-					-o-transition:.5s;
-		  			-ms-transition:.5s;
-		  			-moz-transition:.5s;
-		  			-webkit-transition:.5s;
-		  			/* ...and now for the proper property */
-		  			transition:.5s;
-				}
-				a:hover{
-					background-color: @bgColor;
-				}
-			}
-		}
-	}
-	section{
-		display: inline-block;
-		vertical-align: top;
-		margin: 0;
-		-o-transition:.5s;
-		-ms-transition:.5s;
-		-moz-transition:.5s;
-		-webkit-transition:.5s;
-		/* ...and now for the proper property */
-		transition:.5s;
-		&[name=questions]{
-			padding: @gutterSize;
+		header{
 			text-align: center;
-			max-width: @questionWidth + 2vw;
-			min-height: @bodyHeight;
-			overflow: auto;
-			overflow-x: hidden;
-			max-height: @bodyHeight;
+			z-index: @bottom;
+			width: 100%;
+			display: block;
+			height: @headerHeight;
 		}
-		&[name=information]{
-			max-height: @bodyHeight;
-			max-width: 100 - @questionWidth - 2vw - @navWidth - 7vw;
-			min-width: 25em;
-			overflow: auto;
+		/* Left navigation */
+		nav{
+			z-index: @middle;
+			width: 8em;
+			float: left;
+			height: 100%;
+			display: inline-block;
+			vertical-align: top;
 		}
-	}
-	
-	footer{
-		max-height: @footerHeight;
-		width: 100%;
-		background-color: white;
-		margin-left: 0;
-		padding-top: @gutterSize;
-		padding-bottom: @gutterSize;
-		ul{
-			list-style-type: none;
-			li{
+		/* Main content area,  */
+		section{
+			z-index: @bottom;
+			text-align: center;
+			.question{
+				padding: @gutter;
+				margin: @gutter;
 				display: inline-block;
-				margin: @gutterSize;
 			}
 		}
-	}
-	#colorbox{
-		background-color: @middleStripeColor;
-		outline: none;
-	}
-	#cboxClose{
-		cursor: pointer;
-		border-color: lighten(@bottomStripeColor, 20);
-		border-radius: 1em;
-		min-width: 10em;
-	}
-}
-.vote{
-	border-top: thin solid white;
-	border-bottom: thin solid white;
-	&:first-child{
-		border-left: thin solid white;
-	}
-	&:nth-child(5){
-		border-right: thin solid white;
-	}
-	display: inline-block;
-	-o-transition:.5s;
-	-ms-transition:.5s;
-	-moz-transition:.5s;
-	-webkit-transition:.5s;
-	/* ...and now for the proper property */
-	transition:.5s;
-}
-.vote-Outraged{
-	background-color: @outrageColor;
-	&:hover{
-		background-color: darken(@outrageColor,20);	
-	}
-}
-.vote-Disagree{
-	background-color: @disagreeColor;
-	&:hover{
-		background-color: darken(@disagreeColor,20);	
-	}
-}
-.vote-Neutral{
-	background-color: @neutralColor;
-	&:hover{
-		opacity: .8;
-	}
-}
-.vote-Agree{
-	background-color: @agreeColor;
-	&:hover{
-		background-color: lighten(@agreeColor,20);
-	}
-}
-.vote-Support{
-	background-color: @supportColor;
-	&:hover{
-		background-color: lighten(@supportColor,20);
-	}
-}
-.question{
-	padding: @gutterSize;
-	margin: @gutterSize;
-	margin-left: 0px;
-	width: @questionWidth;
-	outline: none;
-	display: inline-block;
-	div:first-child{
-		border-top-left-radius: @questionRadius;
-		border-top-right-radius: @questionRadius;
-		font-style: italic;
-		text-align: right;
-		span{
-			cursor: pointer;
-			position: relative;
-			right: 20px;
-		}
-	}
-	p{
-		font-style: normal;
-		min-height: @questionRadius;
-
-	}
-	div:last-child{
-		color: @middleStripeColor;
-		border-bottom-right-radius: @questionRadius;
-		border-bottom-left-radius: @questionRadius;
-		form{
-			label,input[type=radio],input[type=submit], button{
-				cursor: pointer;
-				padding: @gutterSize/2;
-			}	
-			label{
-				margin-top: @gutterSize/2;
-				margin-bottom: @gutterSize/2;
+		/* Slide in information */
+		article{
+			z-index: @top;
+			position: absolute;
+			left: 100vw;
+			width: 50vw;
+			top: @headerHeight;
+			background-color: white;
+			hr{
+				border-left: thick solid black;
+				min-height: 100vh;
+				float: left;
+				min-width: 1em;
+				background-color: silver;
 			}
-			div{
-				margin-left: 10%;
-				width: 80%;
-				input[type=submit],button{
-					min-width: 10em;
-					border-color: lighten(@bottomStripeColor, 20);
-					border-radius: 1em;
-				}
-				input[type=submit]:hover,button:hover{
-					padding-left: @gutterSize/2;
-					padding-right: @gutterSize/2;
-					border-color: @middleStripeColor;
-					color: green;
-				}
-				span{
-					font-weight: bold;
-					cursor: help;
-				}
-				span:hover{
-					color: green;
+		}
+		footer{
+			text-align: center;
+			z-index: @bottom;
+			width: 100%;
+			ul{
+				list-style-type: none;
+				li{
+					display: inline-block;
+					padding: @gutter;
 				}
 			}
 		}
 	}
-}
-#content{
-	vertical-align: top;
-	display: inline-block;
-	max-width: 86vw;
-	max-height: @bodyHeight + 1vh;
-	
 }
