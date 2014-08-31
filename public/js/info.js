@@ -1,8 +1,12 @@
 $(document).ready(function() {
+    showMap()
+});
+
+function showMap(){
     $('#map').usmap({
-    	stateSpecificStyles: window.dummyMapInfo,
-  		stateHoverStyles: {fill: 'white'},
-  		showLabels: true
+        stateSpecificStyles: window.dummyMapInfo,
+        stateHoverStyles: {fill: 'white'},
+        showLabels: true
     });
     /* This would be loaded via ajax */
     var stateMapping = {
@@ -29,13 +33,13 @@ $(document).ready(function() {
      * states that should be highlighted by the statistic
      */
      $('#statistics li.vote').on("mouseover",function(){
-     	var classes = this.className.split(" ") 
-        triggerState(classes, "mouseover")     	
+        var classes = this.className.split(" ") 
+        triggerState(classes, "mouseover")      
      })
      $('#statistics li.vote').on("mouseout",function(){
-     	var classes = this.className.split(" ") 
+        var classes = this.className.split(" ") 
         triggerState(classes, "mouseout")      
      })
      
-});
+}
 

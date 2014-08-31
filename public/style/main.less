@@ -4,11 +4,11 @@
 }
 
 /* color pallette */
-@baseColor: #00AE39;
-@baseColor2: #009431;
-@midColor: #00BB3D;
-@midComplement: #00FA52;
-@complimentColor: #005C1E;
+@baseColor: #005C1E;
+@baseColor2: #009631;
+@midColor: #00DF49;
+@midComplement: #00EC4D;
+@complimentColor: #00C540;
 
 @bgColor: @baseColor;
 @bottom: 1;
@@ -21,6 +21,7 @@
 @navColor: @midComplement;
 @headerColor: @midComplement;
 @footerColor: @midColor;
+@fontColor: #ffc757;
 
 .Transition{
 	-o-transition:.5s;
@@ -38,6 +39,7 @@ html{
 	body{
 		height:  100%;
 		background-color: @bgColor;
+		color: @fontColor;
 		header{
 			background-color: @headerColor;
 			color: white;
@@ -87,6 +89,12 @@ html{
 			display: inline-block;
 			vertical-align: top;
 			text-align: right;
+			h3{
+				color: black;
+				text-align: center;
+				margin: @gutter;
+				border-bottom: thin solid black;
+			}
 			h3 + ul{
 				width: 100%;
 				li{
