@@ -15,7 +15,7 @@ jQuery( document ).ready(function( $ ) {
 		$.get("info.html", function(e){
 			$('article div').html(e)
 			if(typeof showMap == 'function'){
-				showMap()
+				showMap($)
 			}
 			$('article').animate({left: "50vw", },500, function(){
 				sideScreenShowing = true	
