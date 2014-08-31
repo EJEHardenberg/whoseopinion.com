@@ -2,16 +2,17 @@
 	<div><%= category %></div>
 	<p><%= text %></p>
 	<div>
-		<form><!--
+		<form>
+			<section><!--
 	<% for(var i= 0; i < 5; i++){ %>
-		--><label class="vote vote-<%= labels[i] %>">
+		--><label>
 			<input type="radio" name="opinion" <%= i == 2 ? "checked" : "" %> value="<%- i -2 %>" /><%= labels[i] %>
 		</label><!-- 
 	<% } %>
-		--><div>
-
+		--></section>
+		<div>
 			<button name="loadstats">Other Opinions</button>
-			<input type="submit" value="Voice Your Opinion" />
+			<button name="showscale">Voice yours</button>
 		</div>
 		</form>
 	</div>

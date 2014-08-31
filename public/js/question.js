@@ -21,9 +21,10 @@ jQuery( document ).ready(function( $ ) {
 		})
 		return false
 	})
-	$('span[name=vote-help]').tooltipster({
-		contentAsHTML: true,
-		content: $('#vote-help').html(),
-		position: "bottom"
+	$('button[name=showscale]').click(function(evt){
+		var section = $(this).closest('form').find('section')
+		section.slideToggle()
+		
+		return false
 	})
 })

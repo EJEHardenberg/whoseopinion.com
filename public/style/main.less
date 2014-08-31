@@ -142,29 +142,54 @@ html{
 			.question{
 				border-radius: @borderRadius;
 				vertical-align: top;
-				max-height: 8em;
-				min-height: 8em;
-				padding: @gutter;
+				min-height: 6em;
 				margin: @gutter;
 				display: inline-block;
 				width: 28em;
 				background-color: @lowColor;
 				div:first-child{
+					padding: @gutter;
+					padding-bottom: 0;
 					text-align: right;
 					text-transform: capitalize;
 				}
+				p{
+					background-color: @highColor;
+					color: black;
+					min-height: 2.8em;
+				}
 				form{
-					label{
-						cursor: pointer;
-						font-size: @fontSize;
-						padding: @gutter;
-						display: inline-block;
-						text-align: center;
-						.scale(@from);
-						input{
-							display: block;
+					section{
+						display: none;
+						label{
+							cursor: pointer;
+							font-size: @fontSize;
+							padding: @gutter;
+							display: inline-block;
 							text-align: center;
-							margin: 0 auto;
+							.scale(@from);
+							input{
+								display: block;
+								text-align: center;
+								margin: 0 auto;
+							};
+							
+						}
+					}
+					div{
+						background-color: #eee;
+						margin: 0 auto;
+						
+						button{
+							padding: @gutter/2;
+							.Transition;
+							border-radius: @borderRadius;
+							background-color: white;
+							cursor: pointer;
+							&:hover{
+								color: @fontColor;
+								background-color: black;
+							}
 						}
 					}
 				}
