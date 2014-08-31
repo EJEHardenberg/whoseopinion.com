@@ -21,10 +21,11 @@ jQuery( document ).ready(function( $ ) {
 		})
 		return false
 	})
-	$('button[name=showscale]').click(function(evt){
+	$(document).on('click', 'button[name=showscale]', function(evt){
 		var section = $(this).closest('form').find('section')
 		section.slideToggle()
-		
+		$(this).attr('name','vote')
+		$(this).text('Vote')
 		return false
 	})
 })
