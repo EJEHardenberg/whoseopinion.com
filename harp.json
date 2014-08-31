@@ -20,7 +20,7 @@
 		"credentials" : {
 			"sometokenorsomething" : "$ENVIRONMENTALVARIABLE"
 		},
-		"labels" :  ["Outraged","Disagree","Neutral","Agree","Support"],
+		"labels" :  ["Strongly Disagree","Disagree","Neutral","Agree","Strongly Agree"],
 		"definitions" : ["","","","",""],
 		"categories" : ["politics", "religion", "technology", "environment", "international" ],
 		"questions" : [

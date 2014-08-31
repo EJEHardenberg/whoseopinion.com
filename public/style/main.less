@@ -5,10 +5,12 @@
 
 /* color pallette */
 @baseColor: #005C1E;
-@baseColor2: #009631;
+@lowColor: #009631;
 @midColor: #00DF49;
-@midComplement: #00EC4D;
-@complimentColor: #00C540;
+@highColor: #00EC4D;
+@lightestColor: #00C540;
+
+@scaleColor: #000;
 
 @bgColor: @baseColor;
 @bottom: 1;
@@ -17,11 +19,13 @@
 @gutter: 10px;
 @headerHeight: 2em;
 @headerPad: .25em;
-@helpButtonBg: @complimentColor;
-@navColor: @midComplement;
-@headerColor: @midComplement;
+@borderRadius: .25em;
+@helpButtonBg: @lightestColor;
+@navColor: @highColor;
+@headerColor: @highColor;
 @footerColor: @midColor;
 @fontColor: #ffc757;
+@fontSize: 14px;
 
 .Transition{
 	-o-transition:.5s;
@@ -30,6 +34,22 @@
     -webkit-transition:.5s;
 	/* ...and now for the proper property */
     transition:.5s;
+}
+
+@from: 1;
+@to: 5;
+.scale(@idx) when(@idx =< @to){
+	&:nth-child(@{idx}){
+		.Transition;
+		background-color: lighten(@scaleColor, @idx*20);
+		color: black;
+		font-weight: bold;
+		&:hover{
+			background-color: darken(lighten(@scaleColor, @idx*20), 30);
+			color: white;
+		}
+	}
+	.scale(@idx + 1);
 }
 
 html{
@@ -102,13 +122,13 @@ html{
 					padding-right: 0;
 					a{
 						.Transition;
-						border-top-left-radius: .25em;
-						border-bottom-left-radius: .25em;
+						border-top-left-radius: @borderRadius;
+						border-bottom-left-radius: @borderRadius;
 						background-color: @midColor;
 						padding: @gutter/2;
 						padding-right: @gutter + @headerHeight;
 						&:hover{
-							background-color: @baseColor2;
+							background-color: @lowColor;
 						}
 					}
 					
@@ -120,9 +140,34 @@ html{
 			z-index: @bottom;
 			text-align: center;
 			.question{
+				border-radius: @borderRadius;
+				vertical-align: top;
+				max-height: 8em;
+				min-height: 8em;
 				padding: @gutter;
 				margin: @gutter;
 				display: inline-block;
+				width: 28em;
+				background-color: @lowColor;
+				div:first-child{
+					text-align: right;
+					text-transform: capitalize;
+				}
+				form{
+					label{
+						cursor: pointer;
+						font-size: @fontSize;
+						padding: @gutter;
+						display: inline-block;
+						text-align: center;
+						.scale(@from);
+						input{
+							display: block;
+							text-align: center;
+							margin: 0 auto;
+						}
+					}
+				}
 			}
 		}
 		/* Slide in information */
