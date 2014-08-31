@@ -3,7 +3,7 @@ $(document).ready(function() {
 });
 
 function showMap(){
-    $('#map').usmap({
+    jQuery('#map').usmap({
         stateSpecificStyles: window.dummyMapInfo,
         stateHoverStyles: {fill: 'white'},
         showLabels: true
@@ -24,7 +24,7 @@ function showMap(){
                 var k =classes[idx]
                 for (var i = datum[k].length - 1; i >= 0; i--) {
                     var state = datum[k][i]
-                    $('#map').usmap('trigger', state, mapevent, null)         
+                    jQuery('#map').usmap('trigger', state, mapevent, null)         
                 };
             }
         }
@@ -32,11 +32,11 @@ function showMap(){
     /* Bind events to the map in order to trigger flashing or highlighting the
      * states that should be highlighted by the statistic
      */
-     $('#statistics li.vote').on("mouseover",function(){
+     jQuery('#statistics li.vote').on("mouseover",function(){
         var classes = this.className.split(" ") 
         triggerState(classes, "mouseover")      
      })
-     $('#statistics li.vote').on("mouseout",function(){
+     jQuery('#statistics li.vote').on("mouseout",function(){
         var classes = this.className.split(" ") 
         triggerState(classes, "mouseout")      
      })
