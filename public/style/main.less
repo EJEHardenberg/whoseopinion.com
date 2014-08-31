@@ -4,11 +4,11 @@
 }
 
 /* color pallette */
-@baseColor2: #00B233;
-@baseColor: #00661D;
-@midColor: #19FF5A;
-@midComplement: #660000;
-@complimentColor: #B20000;
+@baseColor: #00AE39;
+@baseColor2: #009431;
+@midColor: #00BB3D;
+@midComplement: #00FA52;
+@complimentColor: #005C1E;
 
 @bgColor: @baseColor;
 @bottom: 1;
@@ -18,6 +18,9 @@
 @headerHeight: 2em;
 @headerPad: .25em;
 @helpButtonBg: @complimentColor;
+@navColor: @midComplement;
+@headerColor: @midComplement;
+@footerColor: @midColor;
 
 .Transition{
 	-o-transition:.5s;
@@ -29,7 +32,6 @@
 }
 
 html{
-
 	height: 100%;
 	position: relative;
 	overflow-x: hidden;
@@ -37,7 +39,7 @@ html{
 		height:  100%;
 		background-color: @bgColor;
 		header{
-			background-color: @midComplement;
+			background-color: @headerColor;
 			color: white;
 			text-align: center;
 			z-index: @bottom;
@@ -77,7 +79,7 @@ html{
 			padding-right: 0;
 			padding-top: 0;
 			padding-left: 0;
-			background-color: @baseColor2;
+			background-color: @navColor;
 			z-index: @middle;
 			width: 8em;
 			float: left;
@@ -98,7 +100,7 @@ html{
 						padding: @gutter/2;
 						padding-right: @gutter + @headerHeight;
 						&:hover{
-							background-color: @baseColor;
+							background-color: @baseColor2;
 						}
 					}
 					
@@ -132,7 +134,7 @@ html{
 			}
 		}
 		footer{
-			background-color: @midColor;
+			background-color: @footerColor;
 			position: fixed;
 			bottom: 0;
 			text-align: left;
