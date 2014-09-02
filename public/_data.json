@@ -1,11 +1,12 @@
 {
 	"index" : {
-		"loadTooltipster": true
+		"loadTooltipster": true,
+		"loadMapLib" : true
 	},
 	"info" : {
 		"layout" : false,
 		"excludeJQuery" : false,
-		"loadMapLib" : true
+		"loadMapLib" : false
 	},
 	"question-info" : {
 		"layout" : false,

@@ -8,4 +8,10 @@ jQuery( document ).ready(function( $ ) {
 
 	/* At any point they stop, remember their choice and do not bother them again */
 
+	function categoryHelp(){
+		$('[name=category-header]').tooltipster({
+			content: 'Select a category below to display statements to vote on'
+		})
+	}
+
 })
