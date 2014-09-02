@@ -21,7 +21,9 @@ jQuery( document ).ready(function( $ ) {
 		categoryHelp()
 		otherOppHelp()
 		voiceYours()
-		$('.tooltipstered').tooltipster( show ? 'enable' : 'disable')
+		var enableDisable = show ? 'enable' : 'disable'
+		$('.tooltipstered:not([name=vote-help])').tooltipster(enableDisable )
+
 	})
 
 	function categoryHelp(){
