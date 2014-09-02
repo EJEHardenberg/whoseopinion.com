@@ -10,8 +10,6 @@
 @highColor: #00EC4D;
 @lightestColor: #00C540;
 
-@scaleColor: #000;
-
 @bgColor: @baseColor;
 @bottom: 1;
 @middle: 2;
@@ -38,15 +36,19 @@
 
 @from: 1;
 @to: 5;
+@scaleColor: #eee;
+@scaleColors: red, orange, yellow, lime, green;
 .scale(@idx) when(@idx =< @to){
 	&:nth-child(@{idx}){
 		.Transition;
-		background-color: lighten(@scaleColor, @idx*20);
+		@col: extract(@scaleColors, @idx);
+		background-color: @col;
 		color: black;
 		font-weight: bold;
 		&:hover{
-			background-color: darken(lighten(@scaleColor, @idx*20), 30);
-			color: white;
+			z-index: @top;
+			margin-left: @gutter/2;
+			margin-right: @gutter/2;
 		}
 	}
 	.scale(@idx + 1);
