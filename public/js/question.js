@@ -50,7 +50,7 @@ jQuery( document ).ready(function( $ ) {
 					closeButton: false,
 					html: $(this).find('[rel=success]').html()
 				})
-				setTimeout($.colorbox.close,750)
+				setTimeout($.colorbox.close,1250)
 			},
 			error: function(){
 				alert("There was a problem submitting your form")
