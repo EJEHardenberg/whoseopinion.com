@@ -23,6 +23,7 @@ jQuery( document ).ready(function( $ ) {
 		voiceYours()
 		var enableDisable = show ? 'enable' : 'disable'
 		$('.tooltipstered:not([name=vote-help])').tooltipster(enableDisable )
+		$(this).text( show ? 'Help Mode On' : '(?)')
 
 	})
 
