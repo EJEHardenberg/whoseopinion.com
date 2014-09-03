@@ -30,4 +30,26 @@ jQuery( document ).ready(function( $ ) {
 		$(this).text('Vote')
 		return false
 	})
+	$('form[name=question]').submit(function(evt){
+		/* Submit Question via AJAX so that we don't lose the page. */
+		evt.preventDefault()
+		console.debug("Form Submit")
+		$.ajax({
+			data: $(this).serialize(),
+			url: $(this).attr('action'),
+			type: $(this).attr('method'),
+			context: this,
+			success: function(response){
+				/* Do something or another */
+				var btn = $(this).find('button[name=vote]')
+				btn.attr('name','showscale')
+				btn.text('Voice yours')
+				$(this).find('section').slideToggle()
+			},
+			error: function(){
+				alert("There was a problem submitting your form")
+			}
+		})
+		return false
+	})
 })
