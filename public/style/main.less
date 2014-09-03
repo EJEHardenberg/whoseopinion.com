@@ -44,10 +44,11 @@
 		background-color: @col;
 		color: black;
 		font-weight: bold;
+		border: thin solid white;
 		&:hover	{
 			z-index: @top;
-			margin-left: @gutter/2;
-			margin-right: @gutter/2;
+			border: thin solid black;
+			background-color: lighten(@col, 10);
 		}
 		&:active{
 			/* This causes a quick flash when the radio button is clicked */
