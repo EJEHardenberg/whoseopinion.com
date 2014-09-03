@@ -45,6 +45,12 @@ jQuery( document ).ready(function( $ ) {
 				btn.attr('name','showscale')
 				btn.text('Voice yours')
 				$(this).find('section').slideToggle()
+				$.colorbox({
+					overlayClose: true,
+					closeButton: false,
+					html: $(this).find('[rel=success]').html()
+				})
+				setTimeout($.colorbox.close,750)
 			},
 			error: function(){
 				alert("There was a problem submitting your form")
