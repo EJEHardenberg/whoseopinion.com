@@ -10,11 +10,11 @@ function showMap($){
     });
     /* This would be loaded via ajax */
     var stateMapping = {
-        "vote-Outraged" : ['MD'],
+        "vote-Strongly-Disagree" : ['MD'],
         "vote-Disagree" : ["VA"],
         "vote-Neutral" : ["GA"],
         "vote-Agree" : ["MO"],
-        "vote-Support" : ["CA"]
+        "vote-Strongly-Agree" : ["CA"]
     }
 
     function triggerState(classes,mapevent){

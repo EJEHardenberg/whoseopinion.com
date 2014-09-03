@@ -13,8 +13,8 @@
     			"MD": {"fill": "red"},
     			"VA": {"fill": "orange"},
     			"GA": {"fill": "green"},
-    			"MO": {"fill": "olive"},
-	    		"CA": {"fill": "blue"}
+    			"MO": {"fill": "lime"},
+	    		"CA": {"fill": "green"}
   			}
 		},
 		"credentials" : {

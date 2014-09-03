@@ -11,10 +11,10 @@
 	<div>
 		
 		<ul><% 
-			var ranks = ["red", "orange","olive","green","blue"]
+			var ranks = ["red", "orange","yellow","lime","green"]
 			for(r in ranks){
 				var color = ranks[r] %>
-				<li class="vote vote-<%= labels[r] %>"><span><%= labels[r] %></span><%
+				<li class="vote vote-<%= labels[r].replace(/\s/g, '-') %>"><span><%= labels[r] %></span><%
 				} %>
 		</ul>
 		<p>
