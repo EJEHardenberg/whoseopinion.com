@@ -11,9 +11,14 @@ class Category(models.Model):
 class Question(models.Model):
 	statement = models.CharField(max_length=255)
 	category = models.ForeignKey(Category)
+	pub_date = models.DateTimeField('date published')
 
 	def __unicode__(self):
 		return "%s - %s" % (self.category, self.statement)
+
+	def is_recent(self):
+		now = timezone.now()
+		return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 class Opinion(models.Model):
 	question = models.ForeignKey(Question)	
