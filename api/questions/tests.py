@@ -1,5 +1,6 @@
 import datetime
 from django.test import TestCase
+from rest_framework.test import APITestCase
 from django.utils import timezone
 from django.core.urlresolvers import reverse
 
@@ -35,9 +36,6 @@ class QuestionMethodTests(TestCase):
 		recent_question = Question(pub_date=time)
 		self.assertEqual(recent_question.is_recent(), True)
 
-def get_op_string(opinion):
-	return [op[1] for op in Opinion.OPINIONS if op[0] == opinion][0]
-
 class OpinionMethodTests(TestCase):
 
 	def test_unicode_method_valid_votes(self):
@@ -51,11 +49,11 @@ class OpinionMethodTests(TestCase):
 		agree = Opinion(vote=Opinion.AGREE)
 		strong_agree = Opinion(vote=Opinion.STRONGLY_AGREE)
 
-		self.assertEqual(strong_disagree.__unicode__(), get_op_string(Opinion.STRONGLY_DISAGREE) )
-		self.assertEqual(disagree.__unicode__(), get_op_string(Opinion.DISAGREE) )
-		self.assertEqual(neutral.__unicode__(), get_op_string(Opinion.NEUTRAL) )
-		self.assertEqual(agree.__unicode__(), get_op_string(Opinion.AGREE) )
-		self.assertEqual(strong_agree.__unicode__(), get_op_string(Opinion.STRONGLY_AGREE) )
+		self.assertEqual(strong_disagree.__unicode__(), Opinion.vote_string(Opinion.STRONGLY_DISAGREE) )
+		self.assertEqual(disagree.__unicode__(), Opinion.vote_string(Opinion.DISAGREE) )
+		self.assertEqual(neutral.__unicode__(), Opinion.vote_string(Opinion.NEUTRAL) )
+		self.assertEqual(agree.__unicode__(), Opinion.vote_string(Opinion.AGREE) )
+		self.assertEqual(strong_agree.__unicode__(), Opinion.vote_string(Opinion.STRONGLY_AGREE) )
 
 	def test_unicode_method_invalid_vote(self):
 		"""
@@ -64,3 +62,29 @@ class OpinionMethodTests(TestCase):
 		invalid = Opinion(vote=-9999)
 
 		self.assertEqual(invalid.__unicode__(), 'Invalid' )
+
+def create_category(cat_name):
+	"""
+	Creates a category for use in testing
+	"""
+	Category.objects.create(cat_name=cat_name)
+
+class CategoryViewTests(APITestCase):
+	def test_index_listing(self):
+		"""
+		Test categories view with an empty list of categories
+		"""
+		response = self.client.get(reverse('questions:categories'))
+		self.assertEqual(response.status_code, 200)
+		self.assertQuerysetEqual(response.data,[])
+
+	def test_populated_index_listing(self):
+		"""
+		Test categories view when categories exist
+		"""
+		create_category("test")
+		response = self.client.get(reverse('questions:categories'))
+		self.assertEqual(response.status_code, 200)
+		data = ["{'cat_name': u'test', 'id': 1}"]
+		self.assertQuerysetEqual(response.data,data)
+

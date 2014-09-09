@@ -1,6 +1,7 @@
 import datetime
 from django.utils import timezone
 from django.db import models
+from django.db.models import Count
 
 class Category(models.Model):
 	cat_name = models.CharField(max_length=20,verbose_name='Category Name')
@@ -11,14 +12,40 @@ class Category(models.Model):
 class Question(models.Model):
 	statement = models.CharField(max_length=255)
 	category = models.ForeignKey(Category)
-	pub_date = models.DateTimeField('date published')
+	pub_date = models.DateTimeField('date published',default=timezone.now())
 
 	def __unicode__(self):
 		return "%s - %s" % (self.category, self.statement)
 
 	def is_recent(self):
+		"""
+		Find out if the Question was asked recently or not
+		"""
 		now = timezone.now()
 		return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
+	def get_opinion_counts(self):
+		"""
+		Retrieve the number of votes for each type of Opinion,
+		Note: might not include an opinion
+		"""
+		votes = self.opinions.values('vote').annotate(total=Count('vote')).order_by()
+		indexed = {}
+		for v in votes:
+			indexed[v['vote']] = v['total']
+		#Human readable would be something like this: [(Opinion.vote_string(x), q.get_opinion_counts()[x] ) for x in q.get_opinion_counts()]
+		return indexed
+
+	def get_human_opinion_counts(self):
+		votes = self.get_opinion_counts()
+		return ' ,'.join( ["%s : %d" % (Opinion.vote_string(x), votes[x] ) for x in votes] )
+
+	#Admin Settings
+	get_human_opinion_counts.short_description = 'Opinion Vote Count'
+
+	is_recent.admin_order_field = 'pub_date'
+	is_recent.boolean = True
+	is_recent.short_description = 'Published recently?'
 
 class Opinion(models.Model):
 	question = models.ForeignKey(Question, related_name='opinions')	
@@ -40,6 +67,10 @@ class Opinion(models.Model):
 	vote = models.IntegerField(default=0, choices=OPINIONS)
 
 	def __unicode__(self):
-		txt = [v[1] for v in Opinion.OPINIONS if v[0] == self.vote ]
-		return "%s" % txt[0] if len(txt) > 0 else 'Invalid'
+		return Opinion.vote_string(self.vote)
+
+	@classmethod
+	def vote_string(cls, numeric_vote):
+		strs = [op[1] for op in Opinion.OPINIONS if op[0] == numeric_vote]
+		return "%s" % strs[0] if len(strs) > 0 else 'Invalid'
 	
