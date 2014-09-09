@@ -1,8 +1,11 @@
 import datetime
 from django.test import TestCase
+from rest_framework import status
 from rest_framework.test import APITestCase
+
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+
 
 from questions.models import Question,Opinion,Category
 
@@ -126,12 +129,13 @@ class OpinionMethodTests(TestCase):
 		self.assertEqual(invalid.__unicode__(), 'Invalid' )
 
 class CategoryViewTests(APITestCase):
+
 	def test_index_listing(self):
 		"""
 		Test categories view with an empty list of categories
 		"""
 		response = self.client.get(reverse('questions:categories'))
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		self.assertQuerysetEqual(response.data,[])
 
 	def test_populated_index_listing(self):
@@ -140,12 +144,52 @@ class CategoryViewTests(APITestCase):
 		"""
 		create_category("test")
 		response = self.client.get(reverse('questions:categories'))
-		self.assertEqual(response.status_code, 200)
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		data = ["{'cat_name': u'test', 'id': 1}"]
 		self.assertQuerysetEqual(response.data,data)
 
 
 class QuestionViewTests(APITestCase):
-	pass
+	
+	def test_no_questions_category(self):
+		"""
+		When there are no questions in a category it should return an
+		empty list
+		"""
+		category = create_category("test")
+		response = self.client.get(reverse('questions:questions_for_category',args=(category.id,)))
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		data = []
+		self.assertQuerysetEqual(response.data, [])
+
+	def test_bad_category_id(self):
+		"""
+		When the category id passed does not match any in the database 
+		we should 404
+		"""
+		response = self.client.get(reverse('questions:questions_for_category',args=(333,)))
+		self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+	def test_questions_in_category(self):
+		"""
+		When a category contains questions they should be returned
+		"""
+		category = create_category("test")
+		q1 = create_question(statement="one", category = category)
+		q2 = create_question(statement="two", category = category)
+
+		data = [
+			{'statement' : q1.statement, 'category' : category.id, 'id' : q1.id },
+			{'statement' : q2.statement, 'category' : category.id, 'id' : q2.id }
+		]
+		response = self.client.get(reverse('questions:questions_for_category',args=(category.id,)))
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		self.assertEqual(data[0]['statement'], response.data[0]['statement'])
+		self.assertEqual(data[1]['statement'], response.data[1]['statement'])
+		self.assertEqual(data[0]['category'], response.data[0]['category'])
+		self.assertEqual(data[0]['id'], response.data[0]['id'])
+		self.assertEqual(data[1]['category'], response.data[1]['category'])
+		self.assertEqual(data[1]['id'], response.data[1]['id'])
 
 
