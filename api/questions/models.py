@@ -21,7 +21,7 @@ class Question(models.Model):
 		return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
 class Opinion(models.Model):
-	question = models.ForeignKey(Question)	
+	question = models.ForeignKey(Question, related_name='opinions')	
 
 	STRONGLY_DISAGREE = -2
 	DISAGREE = -1

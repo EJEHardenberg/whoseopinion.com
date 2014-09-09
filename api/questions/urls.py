@@ -1,0 +1,12 @@
+from django.conf.urls import patterns, url
+from rest_framework.urlpatterns import format_suffix_patterns
+
+from questions import views
+
+urlpatterns = patterns('',
+    url(r'^categories/$', views.CategoryList.as_view()),
+    url(r'^category/(?P<category_pk>\d+)/$', views.QuestionList.as_view()),
+    url(r'^(?P<question_pk>\d+)/opinions/$', views.OpinionList.as_view()),
+)
+
+urlpatterns = format_suffix_patterns(urlpatterns)
