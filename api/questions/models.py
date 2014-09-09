@@ -1,6 +1,7 @@
 import datetime
 from django.utils import timezone
 from django.db import models
+from operator import itemgetter
 
 class Category(models.Model):
 	cat_name = models.CharField(max_length=20,verbose_name='Category Name')
@@ -40,5 +41,5 @@ class Opinion(models.Model):
 	vote = models.IntegerField(default=0, choices=OPINIONS)
 
 	def __unicode__(self):
-		return self.vote
+		return "%s" % map(itemgetter(1),Opinion.OPINIONS)[self.vote + 2]
 	
