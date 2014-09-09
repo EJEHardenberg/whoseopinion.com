@@ -12,7 +12,7 @@ class Category(models.Model):
 class Question(models.Model):
 	statement = models.CharField(max_length=255)
 	category = models.ForeignKey(Category)
-	pub_date = models.DateTimeField('date published',default=timezone.now())
+	pub_date = models.DateTimeField('date published')
 
 	def __unicode__(self):
 		return "%s - %s" % (self.category, self.statement)
