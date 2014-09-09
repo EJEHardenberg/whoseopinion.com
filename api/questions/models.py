@@ -1,7 +1,6 @@
 import datetime
 from django.utils import timezone
 from django.db import models
-from operator import itemgetter
 
 class Category(models.Model):
 	cat_name = models.CharField(max_length=20,verbose_name='Category Name')
@@ -34,12 +33,13 @@ class Opinion(models.Model):
 		(DISAGREE, 'Disagree'),
 		(NEUTRAL, 'Neutral'),
 		(AGREE, 'Agree'),
-		(STRONGLY_DISAGREE, 'Strongly Agree')
+		(STRONGLY_AGREE, 'Strongly Agree')
 	)
 	#usage: op.vote = Opinion.NEUTRAL
 
 	vote = models.IntegerField(default=0, choices=OPINIONS)
 
 	def __unicode__(self):
-		return "%s" % map(itemgetter(1),Opinion.OPINIONS)[self.vote + 2]
+		txt = [v[1] for v in Opinion.OPINIONS if v[0] == self.vote ]
+		return "%s" % txt[0] if len(txt) > 0 else 'Invalid'
 	
