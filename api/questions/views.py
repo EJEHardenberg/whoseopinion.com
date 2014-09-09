@@ -26,6 +26,8 @@ class QuestionList(APIView):
 	"""
 	def get(self, request, category_pk, format=None):
 		questions = Question.objects.filter(category=category_pk)
+		if not questions:
+			get_object_or_404(Category, pk=category_pk)
 		serializer = QuestionSerializer(questions, many=True)
 		return Response(serializer.data)
 
