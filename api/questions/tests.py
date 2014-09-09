@@ -6,7 +6,26 @@ from django.core.urlresolvers import reverse
 
 from questions.models import Question,Opinion,Category
 
-# Create your tests here.
+#A couple helpers
+def create_category(cat_name):
+	"""
+	Creates a category for use in testing
+	"""
+	return Category.objects.create(cat_name=cat_name)
+
+def create_question(statement, category):
+	"""
+	Creates a question for use in testing, must pass in category
+	"""
+	return Question.objects.create(statement=statement, category=category, pub_date=timezone.now())
+
+def create_opinion(vote, question):
+	"""
+	Creates an opinion for a question with the specifid vote
+	"""
+	return Opinion.objects.create(vote=vote,question=question)
+
+
 class QuestionMethodTests(TestCase):
 	
 	def test_is_recent_with_future_question(self):
@@ -36,6 +55,49 @@ class QuestionMethodTests(TestCase):
 		recent_question = Question(pub_date=time)
 		self.assertEqual(recent_question.is_recent(), True)
 
+	def test_get_opinion_counts_with_no_opinions(self):
+		"""
+		Result of get_opinion_counts when there are no opinions should
+		be an empty dictonary
+		"""
+		question = create_question("Test Question", create_category("test"))
+		votes = question.get_opinion_counts()
+		self.assertEqual(len(votes), 0)
+
+	def test_get_opinion_counts_with_opinions(self):
+		"""
+		Result should contain the number of opinions created for each 
+		opinion choice
+		"""
+		question = create_question("Test Question", create_category("test"))
+		create_opinion(Opinion.STRONGLY_DISAGREE, question)
+		create_opinion(Opinion.STRONGLY_DISAGREE, question)
+		create_opinion(Opinion.STRONGLY_AGREE, question)
+
+		votes = question.get_opinion_counts()
+		
+		self.assertEqual(len(votes), 2) #Two types of opinions
+		self.assertEqual(votes[Opinion.STRONGLY_DISAGREE], 2)
+		self.assertEqual(votes[Opinion.STRONGLY_AGREE], 1)
+
+	def test_get_opinion_counts_with_opinions_errors_on_bad_index(self):
+		"""
+		If you try to access an AGREE when the question had no agreements
+		it will throw an exception. This test is an example of what not
+		to do.
+		"""
+
+		question = create_question("Test Question", create_category("test"))
+		create_opinion(Opinion.STRONGLY_DISAGREE, question)
+		create_opinion(Opinion.STRONGLY_DISAGREE, question)
+		create_opinion(Opinion.STRONGLY_AGREE, question)
+
+		votes = question.get_opinion_counts()
+		with self.assertRaises(KeyError):
+			votes[Opinion.AGREE]
+
+
+
 class OpinionMethodTests(TestCase):
 
 	def test_unicode_method_valid_votes(self):
@@ -63,12 +125,6 @@ class OpinionMethodTests(TestCase):
 
 		self.assertEqual(invalid.__unicode__(), 'Invalid' )
 
-def create_category(cat_name):
-	"""
-	Creates a category for use in testing
-	"""
-	Category.objects.create(cat_name=cat_name)
-
 class CategoryViewTests(APITestCase):
 	def test_index_listing(self):
 		"""
@@ -87,4 +143,9 @@ class CategoryViewTests(APITestCase):
 		self.assertEqual(response.status_code, 200)
 		data = ["{'cat_name': u'test', 'id': 1}"]
 		self.assertQuerysetEqual(response.data,data)
+
+
+class QuestionViewTests(APITestCase):
+	pass
+
 

@@ -15,7 +15,7 @@ class QuestionAdmin(admin.ModelAdmin):
 		('Date information', {'fields' : ['pub_date'], 'classes': ['collapse']}),
 	]
 	list_display = ('statement', 'pub_date', 'is_recent', 'get_human_opinion_counts')
-	list_filter = ['pub_date']
+	list_filter = ['pub_date', 'opinions__vote']
 	search_fields = ['statement']
 
 admin.site.register(Category)
