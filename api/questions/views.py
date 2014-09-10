@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.renderers import JSONRenderer
 
 from questions.models import Opinion,Question,Category
 from questions.serializers import OpinionSerializer,QuestionSerializer,CategorySerializer
@@ -34,13 +35,15 @@ class QuestionList(APIView):
 # curl http://127.0.0.1:8000/questions/1/opinions/
 class OpinionList(APIView):
 	"""
-	Retrieve list of opinions for a single question
+	Retrieves an aggregated list of opinion information for a Question
 	"""
 	def get(self, request, question_pk, format=None):
 		question = get_object_or_404(Question, pk=question_pk)
-		opinions =  question.opinions.all()
-		serializer = OpinionSerializer(opinions, many=True)
-		return Response(serializer.data)
+		output = {}
+		totals =  question.get_json_friendly_counts()
+		output['totals'] = totals
+		content = JSONRenderer().render(output)
+		return Response(content)
 
 	"""
 	Count a vote towards an opinion on a question.

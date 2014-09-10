@@ -40,6 +40,20 @@ class Question(models.Model):
 		votes = self.get_opinion_counts()
 		return ' ,'.join( ["%s : %d" % (Opinion.vote_string(x), votes[x] ) for x in votes] )
 
+	def get_json_friendly_counts(self):
+		votes = self.get_opinion_counts()
+		keys = [o[0] for o in Opinion.OPINIONS]
+		output = {}
+		for key in keys:
+			if key not in votes:
+				votes[key] = 0
+				output[Opinion.vote_string(key)] = 0
+			else:
+				output[Opinion.vote_string(key)] = votes[key]
+		return output
+
+
+
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
 
