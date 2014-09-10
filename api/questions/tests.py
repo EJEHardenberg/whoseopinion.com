@@ -30,7 +30,7 @@ def create_opinion(vote, question):
 
 
 class QuestionMethodTests(TestCase):
-	
+
 	def test_is_recent_with_future_question(self):
 		"""
 		is_recent() should return False for questions whose
@@ -39,7 +39,7 @@ class QuestionMethodTests(TestCase):
 		time = timezone.now() + datetime.timedelta(days=30)
 		future_question = Question(pub_date=time)
 		self.assertEqual(future_question.is_recent(),False)
-	
+		
 	def test_is_recent_with_old_questions(self):
 		"""
 		is_recent() should return False for questions 
@@ -48,7 +48,7 @@ class QuestionMethodTests(TestCase):
 		time = timezone.now() - datetime.timedelta(days=30)
 		old_question = Question(pub_date=time)
 		self.assertEqual(old_question.is_recent(), False)
-	
+
 	def test_is_recent_with_recent_question(self):
 		"""
 		is_recent() should return True for
@@ -157,9 +157,9 @@ class QuestionViewTests(APITestCase):
 		empty list
 		"""
 		category = create_category("test")
-		response = self.client.get(reverse('questions:questions_for_category',args=(category.id,)))
+		response = self.client.get(reverse(
+			'questions:questions_for_category',args=(category.id,)))
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		data = []
 		self.assertQuerysetEqual(response.data, [])
 
 	def test_bad_category_id(self):
@@ -175,14 +175,15 @@ class QuestionViewTests(APITestCase):
 		When a category contains questions they should be returned
 		"""
 		category = create_category("test")
-		q1 = create_question(statement="one", category = category)
-		q2 = create_question(statement="two", category = category)
+		q1 = create_question(statement='one', category=category)
+		q2 = create_question(statement='two', category=category)
 
 		data = [
-			{'statement' : q1.statement, 'category' : category.id, 'id' : q1.id },
-			{'statement' : q2.statement, 'category' : category.id, 'id' : q2.id }
+			{ 'statement' : q1.statement, 'category' : category.id, 'id' : q1.id },
+			{ 'statement' : q2.statement, 'category' : category.id, 'id' : q2.id }
 		]
-		response = self.client.get(reverse('questions:questions_for_category',args=(category.id,)))
+		response = self.client.get(reverse(
+			'questions:questions_for_category', args=(category.id,)))
 
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		self.assertEqual(data[0]['statement'], response.data[0]['statement'])
@@ -191,5 +192,3 @@ class QuestionViewTests(APITestCase):
 		self.assertEqual(data[0]['id'], response.data[0]['id'])
 		self.assertEqual(data[1]['category'], response.data[1]['category'])
 		self.assertEqual(data[1]['id'], response.data[1]['id'])
-
-

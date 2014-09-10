@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -19,7 +19,7 @@ class CategoryList(APIView):
 		serializer = CategorySerializer(categories, many=True)
 		return Response(serializer.data)
 
-#curl http://127.0.0.1:8000/questions/category/1/
+# curl http://127.0.0.1:8000/questions/category/1/
 class QuestionList(APIView):
 	"""
 	List all Questions from a specific category based on Category pk
@@ -31,7 +31,7 @@ class QuestionList(APIView):
 		serializer = QuestionSerializer(questions, many=True)
 		return Response(serializer.data)
 
-#curl http://127.0.0.1:8000/questions/1/opinions/
+# curl http://127.0.0.1:8000/questions/1/opinions/
 class OpinionList(APIView):
 	"""
 	Retrieve list of opinions for a single question

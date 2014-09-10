@@ -1,7 +1,5 @@
 from django.contrib import admin
-
-from django.contrib import admin
-from questions.models import Question, Category, Opinion
+from questions.models import Question, Category
 
 class QuestionAdmin(admin.ModelAdmin):
 	fieldsets = [
