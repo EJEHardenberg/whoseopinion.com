@@ -1,17 +1,19 @@
 from django.shortcuts import get_object_or_404
-
+from django.http import HttpResponse
+from django.utils import timezone
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
 from django.utils.decorators import method_decorator
-from django.views.decorators.csrf import requires_csrf_token
-
+from django.views.decorators.csrf import requires_csrf_token,ensure_csrf_cookie
 
 from questions.models import Opinion,Question,Category
 from questions.serializers import OpinionSerializer,QuestionSerializer,CategorySerializer
 
+import logging
+logger = logging.getLogger(__name__)
 
 # curl http://127.0.0.1:8000/questions/categories/
 class CategoryList(APIView):
@@ -66,3 +68,16 @@ class OpinionList(APIView):
 				return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
 
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+def if_header_exists(request, header):
+	return request.META[header] if header in request.META else ''
+
+
+@ensure_csrf_cookie
+def get_auth(request):
+	host = if_header_exists(request, 'HTTP_HOST')
+	agent = if_header_exists(request, 'HTTP_USER_AGENT')
+	ref = if_header_exists(request, 'HTTP_REFERER')
+	content_type= if_header_exists(request, 'CONTENT_TYPE')
+	logger.debug("New Auth %s %s %s %s" % (host, agent, ref, content_type))
+	return HttpResponse(u"{'heartbeat' : '%s' }" % timezone.now(),content_type='application/json')
