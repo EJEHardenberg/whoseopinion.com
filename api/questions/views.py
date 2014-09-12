@@ -5,6 +5,9 @@ from rest_framework.decorators import api_view
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.renderers import JSONRenderer
+from django.utils.decorators import method_decorator
+from django.views.decorators.csrf import requires_csrf_token
+
 
 from questions.models import Opinion,Question,Category
 from questions.serializers import OpinionSerializer,QuestionSerializer,CategorySerializer
@@ -49,6 +52,7 @@ class OpinionList(APIView):
 	Count a vote towards an opinion on a question.
 	Note: This needs work for ensuring no duplicate votes as best as possible
 	"""
+	@method_decorator(requires_csrf_token)
 	def post(self, request, question_pk, format=None):
 		serializer = OpinionSerializer(data=request.DATA)
 		#Do checks like question_pk == serialized q pk, exists, etc

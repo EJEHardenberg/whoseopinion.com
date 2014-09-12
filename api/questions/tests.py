@@ -8,6 +8,7 @@ from rest_framework.parsers import JSONParser
 
 from django.utils import timezone
 from django.core.urlresolvers import reverse
+from django.test import Client
 
 
 from questions.models import Question,Opinion,Category
@@ -79,7 +80,7 @@ class QuestionMethodTests(TestCase):
 		create_opinion(Opinion.STRONGLY_DISAGREE, question)
 		create_opinion(Opinion.STRONGLY_DISAGREE, question)
 		create_opinion(Opinion.STRONGLY_AGREE, question)
-		
+
 		votes = question.get_opinion_counts()
 		
 		self.assertEqual(len(votes), 2) #Two types of opinions
@@ -92,12 +93,12 @@ class QuestionMethodTests(TestCase):
 		it will throw an exception. This test is an example of what not
 		to do.
 		"""
-		
+
 		question = create_question("Test Question", create_category("test"))
 		create_opinion(Opinion.STRONGLY_DISAGREE, question)
 		create_opinion(Opinion.STRONGLY_DISAGREE, question)
 		create_opinion(Opinion.STRONGLY_AGREE, question)
-		
+
 		votes = question.get_opinion_counts()
 		with self.assertRaises(KeyError):
 			votes[Opinion.AGREE]
@@ -116,7 +117,7 @@ class OpinionMethodTests(TestCase):
 		neutral = Opinion(vote=Opinion.NEUTRAL)
 		agree = Opinion(vote=Opinion.AGREE)
 		strong_agree = Opinion(vote=Opinion.STRONGLY_AGREE)
-		
+
 		self.assertEqual(strong_disagree.__unicode__(), Opinion.vote_string(Opinion.STRONGLY_DISAGREE) )
 		self.assertEqual(disagree.__unicode__(), Opinion.vote_string(Opinion.DISAGREE) )
 		self.assertEqual(neutral.__unicode__(), Opinion.vote_string(Opinion.NEUTRAL) )
@@ -128,7 +129,7 @@ class OpinionMethodTests(TestCase):
 		Test __unicode__ str output when Opinion is invalid numerically
 		"""
 		invalid = Opinion(vote=-9999)
-		
+
 		self.assertEqual(invalid.__unicode__(), 'Invalid' )
 
 class CategoryViewTests(APITestCase):
@@ -181,14 +182,14 @@ class QuestionViewTests(APITestCase):
 		category = create_category("test")
 		q1 = create_question(statement='one', category=category)
 		q2 = create_question(statement='two', category=category)
-		
+
 		data = [
 			{ 'statement' : q1.statement, 'category' : category.id, 'id' : q1.id },
 			{ 'statement' : q2.statement, 'category' : category.id, 'id' : q2.id }
 		]
 		response = self.client.get(reverse(
 			'questions:questions_for_category', args=(category.id,)))
-		
+
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
 		self.assertEqual(data[0]['statement'], response.data[0]['statement'])
 		self.assertEqual(data[1]['statement'], response.data[1]['statement'])
@@ -215,15 +216,15 @@ class OpinionViewTests(APITestCase):
 		"""
 		category = create_category("test")
 		q = create_question(statement='one', category=category)
-		
+
 		response = self.client.get(reverse(
 			'questions:opinions_for_question', args=(q.id,)))
-		
+
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		
+
 		stream = StringIO(response.data)
 		data = JSONParser().parse(stream)
-		
+
 		self.assertTrue('totals' in data)
 		for total in data['totals']:
 			count = data['totals'][total]
@@ -236,24 +237,38 @@ class OpinionViewTests(APITestCase):
 		"""
 		category = create_category('test')
 		q = create_question(statement='test', category=category)
+
+
 		strong_disagree = create_opinion(question=q, vote=Opinion.STRONGLY_DISAGREE)
 		disagree = create_opinion(question=q, vote=Opinion.DISAGREE)
 		neutral = create_opinion(question=q, vote=Opinion.NEUTRAL)
 		agree = create_opinion(question=q, vote=Opinion.AGREE)
 		strong_agree = create_opinion(question=q, vote=Opinion.STRONGLY_AGREE)
-		
+
 		response = self.client.get(reverse(
 			'questions:opinions_for_question', args=(q.id,)))
-		
+
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		
+
 		stream = StringIO(response.data)
 		data = JSONParser().parse(stream)
-		
+
 		self.assertTrue('totals' in data)
-		
+
 		for total in data['totals']:
 			count = data['totals'][total]
 			self.assertEqual(1, count)
 
+	def test_create_opinion_on_question(self):
+		"""
+		POSTing to opinions endpoint should 404 without a valid question 
+		specified
+		"""
 
+		url = reverse('questions:opinions_for_question', args=(333,))
+		data = {'question' : 333, 'vote' : Opinion.NEUTRAL }
+		self.client = Client(enforce_csrf_checks=True)
+		response = self.client.post(url, data, format='json')
+		print response
+		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+		self.assertEqual(response.data, data)
