@@ -259,7 +259,7 @@ class OpinionViewTests(APITestCase):
 			count = data['totals'][total]
 			self.assertEqual(1, count)
 
-	def test_create_opinion_on_question(self):
+	def test_create_opinion_on_non_existent_question(self):
 		"""
 		POSTing to opinions endpoint should 404 without a valid question 
 		specified
@@ -269,6 +269,41 @@ class OpinionViewTests(APITestCase):
 		data = {'question' : 333, 'vote' : Opinion.NEUTRAL }
 		self.client = Client(enforce_csrf_checks=True)
 		response = self.client.post(url, data, format='json')
-		print response
+		self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
+
+	def test_create_opinion_on_question(self):
+		"""
+		POSTing to opinions endpoint with valid
+		"""
+
+		self.assertEqual(list(Opinion.objects.all()),[])
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		self.client = Client(enforce_csrf_checks=True)
+		response = self.client.post(url, data, format='json')
 		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 		self.assertEqual(response.data, data)
+		self.assertEqual(len(list(Opinion.objects.all())),1)
+
+	def test_create_opinion_list_400_response(self):
+		"""
+		Test that POSTing to opinion_list without matching question id's 
+		in the url and post data will return 400
+		"""
+
+		self.assertEqual(list(Opinion.objects.all()),[])
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+
+		url = reverse('questions:opinions_for_question', args=(99999,))
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		self.client = Client(enforce_csrf_checks=True)
+		response = self.client.post(url, data, format='json')
+		self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+
+		self.assertEqual(list(Opinion.objects.all()),[])

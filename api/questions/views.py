@@ -30,6 +30,7 @@ class QuestionList(APIView):
 	"""
 	def get(self, request, category_pk, format=None):
 		questions = Question.objects.filter(category=category_pk)
+		
 		if not questions:
 			get_object_or_404(Category, pk=category_pk)
 		serializer = QuestionSerializer(questions, many=True)
@@ -55,8 +56,13 @@ class OpinionList(APIView):
 	@method_decorator(requires_csrf_token)
 	def post(self, request, question_pk, format=None):
 		serializer = OpinionSerializer(data=request.DATA)
-		#Do checks like question_pk == serialized q pk, exists, etc
-		if serializer.is_valid():
+
+		if serializer.is_valid() and question_pk == request.DATA['question']:
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+		if 'question' in request.DATA and question_pk == request.DATA['question']:
+			if not Question.objects.filter(pk=question_pk):
+				return Response(serializer.errors, status=status.HTTP_404_NOT_FOUND)
+
 		return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
