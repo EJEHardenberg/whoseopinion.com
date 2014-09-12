@@ -307,3 +307,36 @@ class OpinionViewTests(APITestCase):
 		self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
 
 		self.assertEqual(list(Opinion.objects.all()),[])
+
+	def test_creation_after_auth(self):
+		"""
+		requesting authentication should allow creation of an opinion 
+		via the POST to opinions_for_question afterwards.
+		"""
+
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in self.client.cookies)
+
+		csrf_token = self.client.cookies['csrftoken'].value
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+
+		response = self.client.post(url, data, format='json', cookies=self.client.cookies)
+		
+		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+		self.assertEqual(response.data, data)
+		self.assertEqual(len(list(Opinion.objects.all())),1)
+
+
+class AuthView(TestCase):
+
+	def test_heartbeat_returned(self):
+		"""
+		Asking the auth endpoint for a heartbeat also serves back an authentication
+		cookie.
+		"""
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in response.cookies)
