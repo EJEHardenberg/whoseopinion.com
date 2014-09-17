@@ -8,6 +8,7 @@
 		"cssPath" :"/style",
 		"questionPartialUsed" : false,
 		"loadMapLib" : false,
+		"apiBaseURI" : "/api/",
 		"dummydata" : {
 			"statistics" : {
     			"MD": {"fill": "red"},
