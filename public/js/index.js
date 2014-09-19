@@ -37,14 +37,14 @@ jQuery( document ).ready(function( $ ) {
 
 	}
 
-	function loadQuestions(categoryId){
-		console.log('loadQuestions')
-		var categoryId = parseInt(categoryId)
+	function loadQuestions(e){
+		console.log('loadQuestions', e.category)
+		var categoryId = parseInt(e.category)
 		if(isNaN(categoryId)){
 			console.debug("Invalid category id being passed to function")
 			return
 		}
-		var url = category/ + categoryId + '/'
+		var url = window.apiuri +  'category/' + categoryId + '/'
 		$.getJSON(url, displayQuestions)
 	}
 	$('#category-list').on('click', 'a', function(evt){
