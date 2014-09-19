@@ -61,5 +61,6 @@ function findDynamicJavaScript(head, tail) {
 findDynamicJavaScript(public, "/") 
 %>
 <script type="text/javascript">
-	window.apiuri = "<%= apiBaseURI %>"
+	window.apiuri = "<%= apiBaseURI %>",
+	window.labels = [<%- labels.map(function(str){return '"' + str +'"'}) %>]
 </script>

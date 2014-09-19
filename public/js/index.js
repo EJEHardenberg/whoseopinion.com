@@ -32,8 +32,16 @@ jQuery( document ).ready(function( $ ) {
 	}
 	$.getJSON(window.apiuri + "categories/", catHandler)
 
+	
+
 	function displayQuestions(json){
-		console.log('displayQuestions')
+		//json is list of objects
+		console.log('displayQuestions',json)
+		for (var i = json.length - 1; i >= 0; i--) {
+			var q = json[i]
+			var qView = makeQuestion(q.category, q.statement, q.id)
+			$('#questions').append(qView)
+		};
 
 	}
 
@@ -57,3 +65,55 @@ jQuery( document ).ready(function( $ ) {
 
 	$(document).on(loadQuestionsEvent, loadQuestions)
 })
+
+function makeQuestion(category, text, id){
+		var qWrapper = document.createElement('div')
+		$(qWrapper).addClass('question')
+		$(qWrapper).append(
+			$(document.createElement('div')).text(category)
+			)
+		$(qWrapper).append(
+			$(document.createElement('p')).text(text)
+			)
+		var form = document.createElement('form')
+		$(form).attr('method', 'POST')
+		$(form).attr('name', 'question')
+		var radioSection = document.createElement('section')
+		for(var i =0; i < 5; i++){
+			var rad = document.createElement('input')
+			$(rad).attr('type', 'radio')
+			$(rad).attr('name', 'opinion')
+			$(rad).attr('value', i-2)
+			if( i == 2 ){ $(rad).attr('checked',true) }
+			var label = document.createElement('label')
+			$(label).text(window.labels[i])
+			$(label).append(rad)
+			$(radioSection).append(label)
+		}
+
+		var buttonDiv = document.createElement('div')
+		var otherOppinonButton = document.createElement('button')
+		var showScaleButton = document.createElement('button')
+		$(otherOppinonButton).attr('name','loadstats')
+		$(otherOppinonButton).text('Other Opinions')
+		$(buttonDiv).append(otherOppinonButton)
+		$(showScaleButton).attr('name','showscale')
+		$(showScaleButton).text('Voice yours')
+		$(buttonDiv).append(showScaleButton)
+
+		var successDiv = document.createElement('success')
+		$(successDiv).attr('rel','success')
+		$(successDiv).css('display','none')
+		var thanksDiv = document.createElement('div')
+		$(thanksDiv).addClass('thank-you')
+		$(thanksDiv).css({'background-color' : 'black', 'text-align' : 'center'})
+		$(thanksDiv).append( 
+			$(document.createElement('h1')).text('Your vote has been recorded, thanks!')
+			)
+		$(successDiv).append(thanksDiv)
+		$(form).append(radioSection)
+		$(form).append(buttonDiv)
+		$(form).append(successDiv)
+		$(qWrapper).append(form)
+		return qWrapper
+	}
