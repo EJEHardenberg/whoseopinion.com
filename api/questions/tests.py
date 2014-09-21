@@ -20,7 +20,7 @@ def create_category(cat_name):
 	"""
 	return Category.objects.create(cat_name=cat_name)
 
-def create_question(statement, category):
+def create_question(statement, category, pub_date=timezone.now()):
 	"""
 	Creates a question for use in testing, must pass in category
 	"""
@@ -340,3 +340,27 @@ class AuthView(TestCase):
 		"""
 		response = self.client.get(reverse('questions:auth'))
 		self.assertTrue('csrftoken' in response.cookies)
+
+class PopularQuestions(TestCase):
+
+	def test_popular_questions(self):
+		"""
+		Requesting the popular questions returns question that have 
+		many votes that are recent.
+		"""
+		category = create_category('test')
+		q = create_question(statement='popular', category=category)
+		q2 = create_question(statement='not-popular', category=category)
+		time = timezone.now() - datetime.timedelta(days=30)
+		q3 = create_question(statement='old', category=category,pub_date=time)
+
+		for i in range(100):
+			create_opinion(Opinion.STRONGLY_AGREE, q)
+			create_opinion(Opinion.STRONGLY_DISAGREE, q)
+			create_opinion(Opinion.STRONGLY_AGREE, q3)
+			create_opinion(Opinion.STRONGLY_DISAGREE, q3)
+
+		response = self.client.get(reverse('questions:popular'))
+
+		self.assertEqual(response.status_code, status.HTTP_200_OK)
+		print response

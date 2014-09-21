@@ -81,3 +81,6 @@ def get_auth(request):
 	content_type= if_header_exists(request, 'CONTENT_TYPE')
 	logger.debug("New Auth %s %s %s %s" % (host, agent, ref, content_type))
 	return HttpResponse(u"{'heartbeat' : '%s' }" % timezone.now(),content_type='application/json')
+
+def get_popular(request):
+	return ""
