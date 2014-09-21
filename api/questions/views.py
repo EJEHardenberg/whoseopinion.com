@@ -83,4 +83,7 @@ def get_auth(request):
 	return HttpResponse(u"{'heartbeat' : '%s' }" % timezone.now(),content_type='application/json')
 
 def get_popular(request):
-	return ""
+	questions = Question.objects.popular()
+	serializer = QuestionSerializer(questions, many=True)
+	content= JSONRenderer().render(serializer.data)
+	return HttpResponse(content, content_type='application/json')

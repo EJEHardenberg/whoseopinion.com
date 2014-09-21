@@ -3,16 +3,49 @@ from django.utils import timezone
 from django.db import models
 from django.db.models import Count
 
+MAX_POPULAR=10
+
 class Category(models.Model):
 	cat_name = models.CharField(max_length=20,verbose_name='Category Name')
 
 	def __unicode__(self):
 		return self.cat_name
 
+class QuestionManager(models.Manager):
+	def get_queryset(self):
+		return QuestionQuerySet(self.model, using=self._db)
+
+	def most_opinions(self):
+		return self.get_queryset().most_opinions(MAX_POPULAR)
+
+	def recent_questions(self):
+		return self.get_queryset().recent_questions()
+
+	def popular(self):
+		return self.get_queryset().recent_questions().most_opinions(MAX_POPULAR)
+
+class QuestionQuerySet(models.query.QuerySet):
+	def count_opinion(self):
+		return self.annotate(count_opinion=models.Count('opinions'))
+ 
+	def most_opinions(self, count):
+		"""
+		The <count> questions with the most opinions.
+		"""
+		return self.count_opinion().order_by('-count_opinion')[:count]
+ 
+	def recent_questions(self):
+		now = timezone.now()
+		previousDay = now - datetime.timedelta(days=1) 
+		return self.filter(pub_date__range=(previousDay, now))
+
+
+
 class Question(models.Model):
 	statement = models.CharField(max_length=255)
 	category = models.ForeignKey(Category)
 	pub_date = models.DateTimeField('date published')
+	objects = QuestionManager()
 
 	def __unicode__(self):
 		return "%s - %s" % (self.category, self.statement)
@@ -23,6 +56,7 @@ class Question(models.Model):
 		"""
 		now = timezone.now()
 		return now - datetime.timedelta(days=1) <= self.pub_date <= now
+
 
 	def get_opinion_counts(self):
 		"""
@@ -52,14 +86,13 @@ class Question(models.Model):
 				output[Opinion.vote_string(key)] = votes[key]
 		return output
 
-
-
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
 
 	is_recent.admin_order_field = 'pub_date'
 	is_recent.boolean = True
 	is_recent.short_description = 'Published recently?'
+
 
 class Opinion(models.Model):
 	question = models.ForeignKey(Question, related_name='opinions')	

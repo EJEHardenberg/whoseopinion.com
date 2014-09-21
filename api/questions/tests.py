@@ -1,4 +1,4 @@
-import datetime
+import datetime,json
 from django.test import TestCase
 from rest_framework import status
 from rest_framework.test import APITestCase
@@ -350,7 +350,10 @@ class PopularQuestions(TestCase):
 		"""
 		category = create_category('test')
 		q = create_question(statement='popular', category=category)
-		q2 = create_question(statement='not-popular', category=category)
+		for i in xrange(10):
+			create_question(statement='not-popular-bulk', category=category)
+		notPopular = create_question(statement='not-popular', category=category)
+
 		time = timezone.now() - datetime.timedelta(days=30)
 		q3 = create_question(statement='old', category=category,pub_date=time)
 
@@ -363,4 +366,7 @@ class PopularQuestions(TestCase):
 		response = self.client.get(reverse('questions:popular'))
 
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		print response
+		questions = response.content
+		
+		for question in json.loads(questions):
+			self.assertFalse(question['statement'] == 'not-popular')
