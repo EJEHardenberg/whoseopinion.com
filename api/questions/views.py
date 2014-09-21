@@ -59,7 +59,7 @@ class OpinionList(APIView):
 	def post(self, request, question_pk, format=None):
 		serializer = OpinionSerializer(data=request.DATA)
 
-		if serializer.is_valid() and question_pk == request.DATA['question']:
+		if serializer.is_valid() and int(question_pk) == int(request.DATA['question']):
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 
