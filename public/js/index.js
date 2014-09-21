@@ -39,7 +39,8 @@ jQuery( document ).ready(function( $ ) {
 		console.log('displayQuestions',json)
 		for (var i = json.length - 1; i >= 0; i--) {
 			var q = json[i]
-			var qView = makeQuestion(q.category, q.statement, q.id)
+			var categoryText = $('#category-list a[rel='+q.category+']').text()
+			var qView = makeQuestion(categoryText, q.statement, q.id)
 			$('#questions').append(qView)
 		};
 
