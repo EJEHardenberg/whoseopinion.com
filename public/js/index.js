@@ -4,6 +4,8 @@ jQuery( document ).ready(function( $ ) {
 	var loadQuestionsEvent = "load_questions"
 	var popularCategoryFlag = -1
 
+	loadedQuestionsCache = {}
+
 	/* First, load the categories */
 	function catHandler(json){
 		/* Check that it's an array first */
@@ -37,6 +39,8 @@ jQuery( document ).ready(function( $ ) {
 	function displayQuestions(json){
 		//json is list of objects
 		console.log('displayQuestions',json)
+		$('#questions').find('.question').remove()
+		loadedQuestionsCache[loadedQuestionsCache['newest']] = json
 		for (var i = json.length - 1; i >= 0; i--) {
 			var q = json[i]
 			var categoryText = $('#category-list a[rel='+q.category+']').text()
@@ -54,7 +58,13 @@ jQuery( document ).ready(function( $ ) {
 			return
 		}
 		var url = window.apiuri +  'category/' + categoryId + '/'
-		$.getJSON(url, displayQuestions)
+		loadedQuestionsCache['newest'] = url //this is how we pass the info to the function that will cache
+		if(url in loadedQuestionsCache){
+			console.debug('Using cached copy of data', url)
+			displayQuestions(loadedQuestionsCache[url])
+		}else{
+			$.getJSON(url, displayQuestions)
+		}
 	}
 	$('#category-list').on('click', 'a', function(evt){
 		var id = $(this).attr('href').split(':')[1]
