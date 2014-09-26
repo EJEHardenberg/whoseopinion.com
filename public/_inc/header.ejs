@@ -5,17 +5,7 @@
 	<span name="vote-help" title="Click for Help">(?)</span>
 	<h3 name="category-header">Category</h3>
 	<ul id="category-list">
-		<li><a href="/">Popular</a></li>
-		<%
-		for(idx in categories){
-			var category = categories[idx]
-			function captilize(str){
-				return str.charAt(0).toUpperCase() + str.substr(1)
-			}
-			%>
-			<li><a href="/category/?c=<%= category %>"><%= captilize(category) %></a><%
-		} 
-		%>
+		<li><a href="/#category-list:-1">Popular</a></li>
 	</ul>
 	<%- partial("footer") %>
 </nav>

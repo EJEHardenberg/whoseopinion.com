@@ -10,7 +10,7 @@ jQuery( document ).ready(function( $ ) {
 			}
 		}
 	})
-	$('button[name=loadstats]').click(function(evt){
+	$(document).on('click', 'button[name=loadstats]',function(evt){		
 		evt.preventDefault()
 		$.get("info.html", function(e){
 			$('article div').html(e)
@@ -30,7 +30,7 @@ jQuery( document ).ready(function( $ ) {
 		$(this).text('Vote')
 		return false
 	})
-	$('form[name=question]').submit(function(evt){
+	$(document).on('submit','form[name=question]',function(evt){
 		/* Submit Question via AJAX so that we don't lose the page. */
 		evt.preventDefault()
 		console.debug("Form Submit")
