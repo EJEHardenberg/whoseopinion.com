@@ -30,6 +30,9 @@ jQuery( document ).ready(function( $ ) {
 		$(this).text('Vote')
 		return false
 	})
+
+	
+
 	$(document).on('submit','form[name=question]',function(evt){
 		/* Submit Question via AJAX so that we don't lose the page. */
 		evt.preventDefault()
@@ -39,6 +42,12 @@ jQuery( document ).ready(function( $ ) {
 			url: $(this).attr('action'),
 			type: $(this).attr('method'),
 			context: this,
+			beforeSend: function(xhr, settings){
+				if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             		// Only send the token to relative URLs i.e. locally.
+             		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         		}
+			},
 			success: function(response){
 				/* Do something or another */
 				var btn = $(this).find('button[name=vote]')
@@ -59,3 +68,35 @@ jQuery( document ).ready(function( $ ) {
 		return false
 	})
 })
+
+function getCookie(name) {
+		var cookieValue = null;
+		if (document.cookie && document.cookie != '') {
+			var cookies = document.cookie.split(';');
+			for (var i = 0; i < cookies.length; i++) {
+				var cookie = jQuery.trim(cookies[i]);
+				// Does this cookie string begin with the name we want?
+				if (cookie.substring(0, name.length + 1) == (name + '=')) {
+					cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+					break;
+				}
+			}
+		}
+		return cookieValue;
+	}
+
+
+	function getAuthFromApi(){
+		var url = window.apiuri + "auth"
+		$.ajax({
+			url: url,
+			type: "GET",
+			success: function(response){
+				console.info("Heartbeat made", response)
+			},
+			error: function(e){
+				console.error(e)
+				alert("Could not hear heartbeat of webserver")
+			}
+		})
+	}	

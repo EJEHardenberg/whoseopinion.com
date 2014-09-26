@@ -75,9 +75,8 @@ jQuery( document ).ready(function( $ ) {
 	})
 
 	$(document).on(loadQuestionsEvent, loadQuestions)
-})
 
-function makeQuestion(category, text, id){
+	function makeQuestion(category, text, id){
 		var qWrapper = document.createElement('div')
 		$(qWrapper).addClass('question')
 		$(qWrapper).append(
@@ -133,3 +132,5 @@ function makeQuestion(category, text, id){
 		$(qWrapper).append(form)
 		return qWrapper
 	}
+})
+
