@@ -4,7 +4,8 @@
 	 	var q = questions[i] %><%-
 		partial("_inc/question",
 		{ 	category: q.category, 
-			text: q.statement
+			text: q.statement,
+			id: i
 		}) %><%
 	};
 %>

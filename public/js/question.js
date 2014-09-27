@@ -45,6 +45,7 @@ jQuery( document ).ready(function( $ ) {
 			beforeSend: function(xhr, settings){
 				if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
              		// Only send the token to relative URLs i.e. locally.
+             		console.debug('set token')
              		xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
          		}
 			},
@@ -95,8 +96,10 @@ function getCookie(name) {
 				console.info("Heartbeat made", response)
 			},
 			error: function(e){
-				console.error(e)
-				alert("Could not hear heartbeat of webserver")
+				if(e.status != 200){
+					alert("Could not hear heartbeat of webserver")
+					console.error(e)
+				}
 			}
 		})
 	}	

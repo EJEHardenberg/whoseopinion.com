@@ -93,6 +93,7 @@ jQuery( document ).ready(function( $ ) {
 		$(form).append( hiddenInput )
 		$(form).attr('method', 'POST')
 		$(form).attr('name', 'question')
+		$(form).attr('action', '/api/'+id+'/opinions/')
 		var radioSection = document.createElement('section')
 		for(var i =0; i < 5; i++){
 			var rad = document.createElement('input')

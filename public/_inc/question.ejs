@@ -2,7 +2,7 @@
 	<div><%= category %></div>
 	<p><%= text %></p>
 	<div>
-		<form method="POST" name="question">
+		<form method="POST" name="question" action="/api/<%= id %>/opinions/">
 			<section><!--
 	<% for(var i= 0; i < 5; i++){ %>
 		--><label>
