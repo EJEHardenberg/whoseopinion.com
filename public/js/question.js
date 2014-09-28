@@ -36,11 +36,14 @@ jQuery( document ).ready(function( $ ) {
 	$(document).on('submit','form[name=question]',function(evt){
 		/* Submit Question via AJAX so that we don't lose the page. */
 		evt.preventDefault()
-		console.debug("Form Submit")
+		console.debug("Form Submit", $(this).serialize())
+		var data = {'question' : parseInt($(this).find('[name=question]').val()), 'vote' : parseInt($(this).find('[name=opinion]').val()) }
+
 		$.ajax({
-			data: $(this).serialize(),
+			data: JSON.stringify(data),
 			url: $(this).attr('action'),
 			type: $(this).attr('method'),
+			contentType: 'application/JSON',
 			context: this,
 			beforeSend: function(xhr, settings){
 				if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
