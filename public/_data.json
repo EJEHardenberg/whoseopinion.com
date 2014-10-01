@@ -6,7 +6,8 @@
 	"info" : {
 		"layout" : false,
 		"excludeJQuery" : false,
-		"loadMapLib" : false
+		"loadMapLib" : false,
+		"loadChartLib" : true
 	},
 	"question-info" : {
 		"layout" : false,

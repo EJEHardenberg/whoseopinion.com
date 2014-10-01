@@ -21,6 +21,16 @@ if( !noJS ) {
 			<%
 		}
 
+		if( loadChartLib ){ 
+			if( environment == "development" ){ %>
+				<script type="text/javascript" src="/lib/Chartjs-0.2.0/Chart.min.js"></script>
+				<%
+			}else{ %>
+			 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/0.2.0/Chart.min.js"></script>
+				<%
+			}
+		}
+
 	}
 	/* Global Javascripts go here, library code etc. 
 	 * questionPartialUsed is set to true from any script using the partial question

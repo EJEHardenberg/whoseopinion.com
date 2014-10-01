@@ -8,6 +8,7 @@
 		"cssPath" :"/style",
 		"questionPartialUsed" : false,
 		"loadMapLib" : false,
+		"loadChartLib" : false,
 		"apiBaseURI" : "/api/",
 		"dummydata" : {
 			"statistics" : {
