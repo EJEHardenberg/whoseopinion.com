@@ -40,6 +40,17 @@ function showMap($){
         var classes = this.className.split(" ") 
         triggerState(classes, "mouseout")      
      })
+
+     /* Load up the data for the pie chart */
+     var data = []
+     for (var i = window.labelColors.length - 1; i >= 0; i--) {
+         var clr = window.labelColors[i]
+         var label = window.labels[i]
+         var value = 1 //dummy val for now
+         data.push({value: value, color: clr, label: label})
+     };
+     var ctx = document.getElementById("opinionChart").getContext("2d");
+     var opinionChart = new Chart(ctx).Pie(data)
      
 }
 

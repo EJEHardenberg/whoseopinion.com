@@ -4,11 +4,12 @@
 <div id="statistics">
 	<script type="text/javascript">
 		window.dummyMapInfo = <%- JSON.stringify(dummydata.statistics) %>
-		window.label2Colors = <%- JSON.stringify(labelColors) %>
+		window.labelColors = <%- JSON.stringify(labelColors) %>
 	</script>
 	<%- partial("_inc/scripts.ejs") %>
 	<h2>Opinion Demographics</h2>
 	<div id="map" style="width: 400px; height: 250px;"></div>
+	<canvas id="opinionChart" width="400" height="250"></canvas>
 	<div>
 		
 		<ul><% 
