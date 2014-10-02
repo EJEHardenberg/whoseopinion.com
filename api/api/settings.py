@@ -10,6 +10,8 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+from django.contrib.gis.geoip import GeoIP
+
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
@@ -28,6 +30,9 @@ ALLOWED_HOSTS = []
 
 #GeoIp DataFiles
 GEOIP_PATH =  os.path.join(BASE_DIR, 'geoip')
+GEOIP_CACHE_SETTING =  GeoIP.GEOIP_STANDARD #GeoIP.GEOIP_INDEX_CACHE 
+#http://stackoverflow.com/questions/26164870/why-cant-i-use-indexcache-with-the-geolitecountry-geoip-dat-files
+#Maybe change this to Index if possible after I get a hold of an answer for ^
 
 # Application definition
 
