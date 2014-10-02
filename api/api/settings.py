@@ -26,6 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#GeoIp DataFiles
+GEOIP_PATH =  os.path.join(BASE_DIR, 'geoip')
 
 # Application definition
 
@@ -36,6 +38,7 @@ INSTALLED_APPS = (
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.gis',
 	'questions'
 )
 
