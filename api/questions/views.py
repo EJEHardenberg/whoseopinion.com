@@ -15,6 +15,9 @@ from questions.serializers import OpinionSerializer,QuestionSerializer,CategoryS
 import logging
 logger = logging.getLogger(__name__)
 
+from ipware.ip import get_ip
+
+
 # curl http://127.0.0.1:8000/questions/categories/
 class CategoryList(APIView):
 	"""
@@ -57,9 +60,15 @@ class OpinionList(APIView):
 	"""
 	@method_decorator(requires_csrf_token)
 	def post(self, request, question_pk, format=None):
+		ip = get_ip(request)
+		if ip is None:
+			logger.debug("No IP Address given in post")
+
 		serializer = OpinionSerializer(data=request.DATA)
 
-		if serializer.is_valid() and int(question_pk) == int(request.DATA['question']):
+		questionIdsMatch = int(question_pk) == int(request.DATA['question'])
+		if serializer.is_valid() and questionIdsMatch and ip:
+			serializer.object.ip_addr = ip
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 

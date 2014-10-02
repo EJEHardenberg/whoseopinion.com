@@ -113,7 +113,10 @@ class Opinion(models.Model):
 
 	vote = models.IntegerField(default=0, choices=OPINIONS)
 
-	ip_addr = models.CharField(max_length=64, default="127.0.0.1") #max is 45 +\0 chars according to headers
+	ip_addr = models.CharField(max_length=64, default="127.0.0.1",null=True, blank=True)
+	#max is 45 +\0 chars according to headers
+	#null and blank is true since we need to validate with a serializer and will
+	#set the value serverside anyway
 
 	def __unicode__(self):
 		return Opinion.vote_string(self.vote)

@@ -259,6 +259,7 @@ class OpinionViewTests(APITestCase):
 			count = data['totals'][total]
 			self.assertEqual(1, count)
 
+
 	def test_create_opinion_on_non_existent_question(self):
 		"""
 		POSTing to opinions endpoint should 404 without a valid question 
@@ -329,6 +330,61 @@ class OpinionViewTests(APITestCase):
 		self.assertEqual(mkResponse.status_code, status.HTTP_201_CREATED)
 		self.assertEqual(mkResponse.data, data)
 		self.assertEqual(len(list(Opinion.objects.all())),1)
+
+	def test_create_opinion_without_ip_addr(self):
+		"""
+		Attempting to create an adress without an ip_addr should fail
+		"""
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in self.client.cookies)
+
+		csrf_token = self.client.cookies['csrftoken'].value
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+
+		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies,REMOTE_ADDR='')
+
+		self.assertEqual(mkResponse.status_code, status.HTTP_400_BAD_REQUEST)
+
+	def test_create_opinion_with_invalid_ip_addr(self):
+		"""
+		Attempting to create an adress without an ip_addr should fail
+		"""
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in self.client.cookies)
+
+		csrf_token = self.client.cookies['csrftoken'].value
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+
+		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies,REMOTE_ADDR='this_is_not_a_real_ip_addr')
+
+		self.assertEqual(mkResponse.status_code, status.HTTP_400_BAD_REQUEST)
+
+	def test_create_opinion_with_invalid_ip_addr_again(self):
+		"""
+		Attempting to create an adress without an ip_addr should fail
+		"""
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in self.client.cookies)
+
+		csrf_token = self.client.cookies['csrftoken'].value
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+
+		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies,REMOTE_ADDR='127.0..2.1')
+
+		self.assertEqual(mkResponse.status_code, status.HTTP_400_BAD_REQUEST)
+
 
 
 class AuthView(TestCase):
