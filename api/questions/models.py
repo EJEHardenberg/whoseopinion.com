@@ -113,6 +113,8 @@ class Opinion(models.Model):
 
 	vote = models.IntegerField(default=0, choices=OPINIONS)
 
+	ip_addr = models.CharField(max_length=64, default="127.0.0.1") #max is 45 +\0 chars according to headers
+
 	def __unicode__(self):
 		return Opinion.vote_string(self.vote)
 
