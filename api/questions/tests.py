@@ -385,6 +385,28 @@ class OpinionViewTests(APITestCase):
 
 		self.assertEqual(mkResponse.status_code, status.HTTP_400_BAD_REQUEST)
 
+	def test_create_opinion_with_an_ip_addr_thats_not_local(self):
+		"""
+		Attempting to create an adress without an ip_addr should fail
+		"""
+		response = self.client.get(reverse('questions:auth'))
+		self.assertTrue('csrftoken' in self.client.cookies)
+
+		csrf_token = self.client.cookies['csrftoken'].value
+
+		category = create_category('test')
+		q = create_question(statement='test', category=category)
+		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
+		url = reverse('questions:opinions_for_question', args=(q.id,))
+
+		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies,REMOTE_ADDR='8.8.8.8')
+
+		self.assertEqual(mkResponse.status_code, status.HTTP_201_CREATED)
+
+		op = Opinion.objects.get(question_id=q.id)
+
+		self.assertEqual(op.ip_addr, '8.8.8.8')
+
 
 
 class AuthView(TestCase):
