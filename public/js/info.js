@@ -32,12 +32,13 @@ function showMap($){
 	/* Bind events to the map in order to trigger flashing or highlighting the
 	 * states that should be highlighted by the statistic
 	 */
-	$('#statistics li.vote').on("mouseover",function(){
-		var classes = this.className.split(" ") 
+	$('#statistics').on("mouseover",'.vote',function(){
+
+		var classes = $(this).attr('class').split(" ") 
 		triggerState(classes, "mouseover")      
 	})
-	$('#statistics li.vote').on("mouseout",function(){
-		var classes = this.className.split(" ") 
+	$('#statistics').on("mouseout",'.vote',function(){
+		var classes = $(this).attr('class').split(" ") 
 		triggerState(classes, "mouseout")      
 	})
 
@@ -53,11 +54,11 @@ function showMap($){
 
 	//dummy data for how it will be
 	var data = [
-		{"votes" : 1, "name" : "Strongly Agree"},
+		{"votes" : 2, "name" : "Strongly Agree"},
 		{"votes" : 1, "name" : "Agree"},
-		{"votes" : 1, "name" : "Neutral"},
+		{"votes" : 4, "name" : "Neutral"},
 		{"votes" : 1, "name" : "Disagree"},
-		{"votes" : 1, "name" : "Strongly Disagree"}
+		{"votes" : 3, "name" : "Strongly Disagree"}
 	]
 
 	/*
@@ -95,10 +96,13 @@ function showMap($){
 
       	/* and we'll label it with it's # of votes */
       	bar.append("text")
-      		.attr("x", function(d) { return x(d.votes) - 3; })
+      		.attr("x", function(d) { return 0; })
       		.attr("y", barHeight / 2)
       		.attr("dy", ".35em")
-      		.text(function(d) { return d.votes; });
+      		.attr("class", function(d){ return "vote vote-" + d.name.replace(" ","-") } )
+      		.text(function(d) { 
+      			return d.votes + (d.votes == 1 ? "person" : "people") + " " + d.name;
+      		});
 
 
 
