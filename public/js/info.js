@@ -49,13 +49,7 @@ function showMap($){
 		var value = 1 //dummy val for now
 		data.push({value: value, color: clr, label: label})
 	};
-	var ctx = document.getElementById("opinionChart").getContext("2d");
-	var opinionChart = new Chart(ctx).Pie(data)
-	var updateChartFunction = function(evt){
-		var activeSegments = opinionChart.getSegmentsAtEvent(evt)
-		console.log(activeSegments)
-	}
-	$(ctx).on('hover', updateChartFunction)
+	
 
 	//dummy data for how it will be
 	var data = [
@@ -87,16 +81,17 @@ function showMap($){
 		voteChart.attr("height", barHeight * data.length)
 
 		/* Grab all groups and define how data will be transformed when entering */
-		var bar = chart.selectAll("g")
+		var bar = voteChart.selectAll("g")
       		  .data(data)
-    		.enter().append("g")
-      		  .attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
+    		.enter()
+    		  .append("g")
+      		  	.attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
 
       	/* For each bar we're going to add a rectangle ... */
       	bar.append("rect")
       		.attr("width", function(d) { return x(d.votes); })
       		.attr("height", barHeight - 1)
-      		.attr("class", function(d){ return d.name.replace(" ","-") } )
+      		.attr("class", function(d){ return "vote vote-" + d.name.replace(" ","-") } )
 
       	/* and we'll label it with it's # of votes */
       	bar.append("text")

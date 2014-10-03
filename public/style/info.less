@@ -29,6 +29,23 @@
 	}
 	.scale(@idx + 1);
 }
+.svgscale(@idx) when(@idx =< @to){
+	&:nth-child(@{idx}){
+		.Transition;
+		@col: extract(@scaleColors, @idx);
+		fill: @col;
+		color: black;
+		font-weight: bold;
+		&:hover	{
+			fill: white;
+		}
+		&:active{
+			/* This causes a quick flash when the radio button is clicked */
+			fill: blue;
+		}
+	}
+	.svgscale(@idx + 1);
+}
 
 #statistics{
 	border: thick solid black;
@@ -61,6 +78,11 @@
 				border: none;
 				cursor: crosshair;
 			}
+		}
+	}
+	svg{
+		g{
+			.svgscale(1);
 		}
 	}
 }
