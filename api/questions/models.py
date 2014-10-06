@@ -78,13 +78,15 @@ class Question(models.Model):
 		votes = self.get_opinion_counts()
 		keys = [o[0] for o in Opinion.OPINIONS]
 		output = {}
+		outputList = []
 		for key in keys:
 			if key not in votes:
 				votes[key] = 0
 				output[Opinion.vote_string(key)] = 0
 			else:
 				output[Opinion.vote_string(key)] = votes[key]
-		return output
+			outputList.append({"name" : Opinion.vote_string(key), "votes" : output[Opinion.vote_string(key)] })
+		return outputList
 
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
