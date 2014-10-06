@@ -5,3 +5,33 @@
 @lightestColor: #00C540;
 
 @mapBase: cornflowerblue;
+
+@stronglyDisagree: red;
+@disagree: orange;
+@neutral: yellow;
+@agree: lime;
+@stronglyAgree: green;
+
+.bgFill(@color){
+	background-color: @color;
+	fill: @color;
+}
+
+.vote-Strongly-Agree{
+	.bgFill(@stronglyAgree);
+}
+.vote-Agree{
+	.bgFill(@agree);
+}
+
+.vote-Neutral{
+	.bgFill(@neutral);
+}
+
+.vote-Disagree{
+	.bgFill(@disagree);
+}
+
+.vote-Strongly-Disagree{
+	.bgFill(@stronglyDisagree);
+}

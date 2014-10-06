@@ -3,15 +3,15 @@ jQuery(document).ready(function($) {
 });
 
 function showMap($){
+	//dummy data for how it will be
+	var data = [
+		{"votes" : 2, "name" : "Strongly Agree",	"state" : "US-AK"},
+		{"votes" : 1, "name" : "Agree",				"state" : "US-VT"},
+		{"votes" : 4, "name" : "Neutral",			"state" : "US-NH"},
+		{"votes" : 1, "name" : "Disagree",			"state" : "US-CA"},
+		{"votes" : 3, "name" : "Strongly Disagree", "state" : "US-TX"}
+	]
 
-	/* This would be loaded via ajax */
-	var stateMapping = {
-		"vote-Strongly-Disagree" : ['MD'],
-		"vote-Disagree" : ["VA"],
-		"vote-Neutral" : ["GA"],
-		"vote-Agree" : ["MO"],
-		"vote-Strongly-Agree" : ["CA"]
-	}
 
 	var chartContainer = d3.select("#map")
 	d3.xml("/svgs/usa.svg", function(error, documentFragment){
@@ -21,19 +21,27 @@ function showMap($){
 		chartContainer.html("")
 		chartContainer.node().appendChild(svgNode)
 
-		var innerSVG = chartContainer.select("svg");
+		var innerSVG = d3.select("svg");
 		innerSVG.attr('height', chartContainer.attr('height'))
+
+		var paths = innerSVG.selectAll("path")
+		
+		var joined = paths.data(data, function(d){ 
+			/* Key function, mind the gaps */
+			return (d && d.state) || d3.select(this).attr("id")
+		})
+
+		joined.attr("class", function(d){		
+			if( typeof d == "undefined" ){
+				return "land"
+			}
+			console.log("setting class",d)	
+			return "vote-" + d.name.replace(" ", "-")	
+		})
+
 	})
 
-	//dummy data for how it will be
-	var data = [
-		{"votes" : 2, "name" : "Strongly Agree"},
-		{"votes" : 1, "name" : "Agree"},
-		{"votes" : 4, "name" : "Neutral"},
-		{"votes" : 1, "name" : "Disagree"},
-		{"votes" : 3, "name" : "Strongly Disagree"}
-	]
-
+	
 	/*
 		The recommended indentation pattern for method chaining is four 
 		spaces for methods that preserve the current selection and two 
