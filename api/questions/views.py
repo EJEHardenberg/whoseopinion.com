@@ -68,6 +68,10 @@ class OpinionList(APIView):
 		if ip is None:
 			logger.debug("No IP Address given in post")
 
+		if settings.DEBUG and ip == '127.0.0.1':
+			ip = '72.15.24.78'
+
+
 		serializer = OpinionSerializer(data=request.DATA)
 
 		questionIdsMatch = int(question_pk) == int(request.DATA['question'])
