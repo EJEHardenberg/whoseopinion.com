@@ -227,7 +227,7 @@ class OpinionViewTests(APITestCase):
 
 		self.assertTrue('totals' in data)
 		for total in data['totals']:
-			count = data['totals'][total]
+			count = total.get('votes')
 			self.assertEqual(0, count)
 
 	def test_get_opinions_for_question_with_votes(self):
@@ -256,7 +256,9 @@ class OpinionViewTests(APITestCase):
 		self.assertTrue('totals' in data)
 
 		for total in data['totals']:
-			count = data['totals'][total]
+			count = total.get('votes')
+
+
 			self.assertEqual(1, count)
 
 

@@ -1,4 +1,6 @@
 jQuery( document ).ready(function( $ ) {
+	$.ajaxSetup({ cache: false });
+
 	console.info('Question.js loaded')
 	var sideScreenShowing = false
 	$('html').click(function(event){
