@@ -6,11 +6,70 @@ function showMap($){
 	//dummy data for how it will be
 	var data = {
 		"totals" : [
-			{"votes" : 2, "name" : "Strongly Agree",	},
-			{"votes" : 1, "name" : "Agree",				},
-			{"votes" : 4, "name" : "Neutral",			},
-			{"votes" : 1, "name" : "Disagree",			},
-			{"votes" : 3, "name" : "Strongly Disagree", }
+			{'majority': 'Inconclusive', 'state': 'US-WA', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-TX', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-MA', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Strongly Disagree', 'state': 'US-CA', 'totals': [
+				{'votes': 2, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-GA', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-NH', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-VT', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}, 
+			{'majority': 'Inconclusive', 'state': 'US-NC', 'totals': [
+				{'votes': 1, 'name': 'Strongly Disagree'}, 
+				{'votes': 1, 'name': 'Disagree'}, 
+				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 1, 'name': 'Agree'}, 
+				{'votes': 1, 'name': 'Strongly Agree'}
+				]
+			}
 		],
 		"states" : [
 			{"votes" : 2, "name" : "Strongly Agree",	"state" : "US-AK"},
