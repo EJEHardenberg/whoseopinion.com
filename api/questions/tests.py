@@ -10,6 +10,7 @@ from django.utils import timezone
 from django.core.urlresolvers import reverse
 from django.test import Client
 
+from django.contrib.gis.geoip import GeoIP
 
 from questions.models import Question,Opinion,Category
 

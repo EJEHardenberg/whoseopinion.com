@@ -16,6 +16,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 from ipware.ip import get_ip
+from django.contrib.gis.geoip import GeoIP
 
 
 # curl http://127.0.0.1:8000/questions/categories/
