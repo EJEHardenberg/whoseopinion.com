@@ -116,15 +116,24 @@ class QuestionMethodTests(TestCase):
 			for opinion in Opinion.OPINIONS:
 				create_opinion(opinion[0], question, region )
 
+		#We strongly disagree with CA, for testing the concensus key
+		create_opinion(Opinion.STRONGLY_DISAGREE, question, 'CA' )
+
 		results = question.get_json_friendly_usa_state_counts()
 		#Assert key structure and that there are states.length items, with 1 vote each
 		self.assertEqual(len(results), len(states))
 		for result in results:
 			self.assertTrue(result.get('totals'))
+			if result.get('state') == 'US-CA':
+				self.assertEqual(result.get('concensus'), Opinion.vote_string(Opinion.STRONGLY_DISAGREE) )
+			else:
+				self.assertEqual(result.get('concensus'), u'Tied' )
 			totals = result.get('totals')
 			self.assertEqual(len(totals), len(Opinion.OPINIONS))
 			for vote in totals:
 				self.assertEqual(vote.get('votes'), 1)
+
+		
 
 
 class OpinionMethodTests(TestCase):
