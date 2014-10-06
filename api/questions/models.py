@@ -5,7 +5,7 @@ from django.db.models import Count
 
 """For use with custom aggregations that don't fit into a model well"""
 from django.db import connection
-
+import operator
 
 MAX_POPULAR=10
 
@@ -95,9 +95,10 @@ class Question(models.Model):
 	def get_json_friendly_usa_state_counts(self):
 		counts = []
 		with connection.cursor() as cursor:
-			query = 'SELECT count(*),vote, country_code,region FROM questions_opinion WHERE question_id = %s GROUP BY country_code,region,vote ORDER BY region'
+			query = 'SELECT count(*) as thecount,vote, country_code,region FROM questions_opinion WHERE question_id = %s GROUP BY country_code,region,vote ORDER BY region, thecount DESC'
 			cursor.execute(query,[self.id])
 			tmp = {}
+			majority = Question.MAJORITY_INCONCLUSIVE
 			for row in cursor:
 				k = "%s-%s" % (row[2], row[3])
 				opData = {
@@ -106,13 +107,29 @@ class Question(models.Model):
 				}
 				if tmp.get(k):
 					tmp.get(k).get('totals').append(opData)
+					#Handle possible tied consensus
+					totalList = [res.get('votes') for res in tmp.get(k).get('totals') ]
+					maxval  =  max(totalList)
+					indices = [votes for votes in totalList if votes == maxval]
+
+					if len(indices) > 1:
+						tmp.get(k)['majority'] = Question.MAJORITY_INCONCLUSIVE
+					else:
+						tmp.get(k)['majority'] = majority
 				else:
+					#Since we order by the cout, the first is the majority vote
+					majority = Opinion.vote_string(row[1])
+					if majority == 'Disagree':
+						print row
 					tmp[k] = {
 						"state" : k,
+						"majority" : majority,
 						"totals" : [ opData ]
 					}
 			counts = tmp.values()
 		return counts
+
+	MAJORITY_INCONCLUSIVE = u'Inconclusive'
 
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
