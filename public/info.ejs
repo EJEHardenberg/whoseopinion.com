@@ -8,17 +8,13 @@
 	</script>
 	<%- partial("_inc/scripts.ejs") %>
 	<h2>Opinion Demographics</h2>
-	<div id="map" style="width: 400px; height: 250px;"></div>
+	
+    <link rel="stylesheet" type="text/css" href="/style/usa.css">
+	<div id="map" width="560px" height="300px">
+		<object type="image/svg+xml" width="560px" height="300px" data="/svgs/usa.svg">Your browser does not support SVG</object>
+	</div>
 	<svg id="svg_chart" width="400px" height="250px"></svg>
 	<div>
-		
-		<ul><% 
-			var ranks = ["red", "orange","yellow","lime","green"]
-			for(r in ranks){
-				var color = ranks[r] %>
-				<li class="vote vote-<%= labels[r].replace(/\s/g, '-') %>"><span><%= labels[r] %></span><%
-				} %>
-		</ul>
 		<p>
 			Ever wonder where the people who think like you are?
 		</p>

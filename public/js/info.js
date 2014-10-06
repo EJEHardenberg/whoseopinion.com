@@ -3,11 +3,7 @@ jQuery(document).ready(function($) {
 });
 
 function showMap($){
-	$('#map').usmap({
-		stateSpecificStyles: window.dummyMapInfo,
-		stateHoverStyles: {fill: 'white'},
-		showLabels: true
-	});
+
 	/* This would be loaded via ajax */
 	var stateMapping = {
 		"vote-Strongly-Disagree" : ['MD'],
@@ -17,40 +13,17 @@ function showMap($){
 		"vote-Strongly-Agree" : ["CA"]
 	}
 
-	function triggerState(classes,mapevent){
-		var datum = stateMapping
-		for( idx in classes){
-			if( classes[idx] in datum ){
-				var k =classes[idx]
-				for (var i = datum[k].length - 1; i >= 0; i--) {
-					var state = datum[k][i]
-					$('#map').usmap('trigger', state, mapevent, null)         
-				};
-			}
-		}
-	}
-	/* Bind events to the map in order to trigger flashing or highlighting the
-	 * states that should be highlighted by the statistic
-	 */
-	$('#statistics').on("mouseover",'.vote',function(){
+	var chartContainer = d3.select("#map")
+	d3.xml("/svgs/usa.svg", function(error, documentFragment){
+		if (error) {console.error(error); return}
 
-		var classes = $(this).attr('class').split(" ") 
-		triggerState(classes, "mouseover")      
-	})
-	$('#statistics').on("mouseout",'.vote',function(){
-		var classes = $(this).attr('class').split(" ") 
-		triggerState(classes, "mouseout")      
-	})
+		var svgNode = documentFragment.getElementsByTagName("svg")[0];
+		chartContainer.html("")
+		chartContainer.node().appendChild(svgNode)
 
-	/* Load up the data for the pie chart */
-	var data = []
-	for (var i = window.labelColors.length - 1; i >= 0; i--) {
-		var clr = window.labelColors[i]
-		var label = window.labels[i]
-		var value = 1 //dummy val for now
-		data.push({value: value, color: clr, label: label})
-	};
-	
+		var innerSVG = chartContainer.select("svg");
+		innerSVG.attr('height', chartContainer.attr('height'))
+	})
 
 	//dummy data for how it will be
 	var data = [
@@ -101,10 +74,8 @@ function showMap($){
       		.attr("dy", ".35em")
       		.attr("class", function(d){ return "vote vote-" + d.name.replace(" ","-") } )
       		.text(function(d) { 
-      			return d.votes + (d.votes == 1 ? "person" : "people") + " " + d.name;
+      			return d.name + ": " + d.votes
       		});
-
-
 
 	//}
 

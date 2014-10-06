@@ -15,12 +15,6 @@ if( !noJS ) {
 			<% 
 		}
 
-		if( loadMapLib ){ %>
-			<script type="text/javascript" src="/lib/us-map-1.0.1/lib/raphael.js"></script>
-			<script type="text/javascript" src="/lib/us-map-1.0.1/jquery.usmap.js"></script>
-			<%
-		}
-
 		if( loadChartLib ){ 
 			if( environment == "development" ){ %>
 				<script type="text/javascript" src="/lib/d3/d3.min.js"></script>
