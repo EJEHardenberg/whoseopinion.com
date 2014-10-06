@@ -12,6 +12,7 @@ from django.views.decorators.csrf import requires_csrf_token,ensure_csrf_cookie
 from questions.models import Opinion,Question,Category
 from questions.serializers import OpinionSerializer,QuestionSerializer,CategorySerializer
 
+from api import settings
 import logging
 logger = logging.getLogger(__name__)
 
@@ -62,6 +63,7 @@ class OpinionList(APIView):
 	"""
 	@method_decorator(requires_csrf_token)
 	def post(self, request, question_pk, format=None):
+		geo = GeoIP(settings.GEOIP_PATH, settings.GEOIP_CACHE_SETTING)
 		ip = get_ip(request)
 		if ip is None:
 			logger.debug("No IP Address given in post")
@@ -72,6 +74,17 @@ class OpinionList(APIView):
 		if serializer.is_valid() and questionIdsMatch and ip:
 			serializer.object.ip_addr = ip
 			#Retrieve information for the objects IP adress
+			ipData = geo.city(ip)
+			if not ipData:
+				return Response({u'error' : u'Could not lookup location data for your IP'},status=status.HTTP_400_BAD_REQUEST)
+
+			serializer.object.country_code = ipData.get('country_code')
+			serializer.object.region = ipData.get('region')
+
+			try:
+				serializer.object.clean_fields()
+			except ValidationError, e:
+				return Response(e,status=status.HTTP_400_BAD_REQUEST)
 			
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)

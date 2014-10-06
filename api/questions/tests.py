@@ -288,7 +288,7 @@ class OpinionViewTests(APITestCase):
 		url = reverse('questions:opinions_for_question', args=(q.id,))
 		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
 		self.client = Client(enforce_csrf_checks=True)
-		response = self.client.post(url, data, format='json')
+		response = self.client.post(url, data, format='json',REMOTE_ADDR='8.8.8.8')
 		self.assertEqual(response.status_code, status.HTTP_201_CREATED)
 		self.assertEqual(response.data, data)
 		self.assertEqual(len(list(Opinion.objects.all())),1)
@@ -328,7 +328,7 @@ class OpinionViewTests(APITestCase):
 		data = {'question' : q.id, 'vote' : Opinion.NEUTRAL }
 		url = reverse('questions:opinions_for_question', args=(q.id,))
 
-		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies)
+		mkResponse = self.client.post(url, data, format='json', cookies=self.client.cookies, REMOTE_ADDR='8.8.8.8')
 		
 		self.assertEqual(mkResponse.status_code, status.HTTP_201_CREATED)
 		self.assertEqual(mkResponse.data, data)
