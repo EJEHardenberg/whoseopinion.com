@@ -12,9 +12,11 @@ jQuery( document ).ready(function( $ ) {
 	})
 	$(document).on('click', 'button[name=loadstats]',function(evt){		
 		evt.preventDefault()
+		qid = $(this).parent().closest('form').find('[name=question]').attr('value')
 		$.get("info.html", function(e){
 			$('article div').html(e)
 			if(typeof showMap == 'function'){
+				document.location.hash = "q:" + qid
 				showMap($)
 			}
 			$('article').animate({left: "50vw", },500, function(){
