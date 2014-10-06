@@ -27,11 +27,11 @@ def create_question(statement, category, pub_date=timezone.now()):
 	"""
 	return Question.objects.create(statement=statement, category=category, pub_date=timezone.now())
 
-def create_opinion(vote, question):
+def create_opinion(vote, question, region=u'CA'):
 	"""
 	Creates an opinion for a question with the specifid vote
 	"""
-	return Opinion.objects.create(vote=vote,question=question)
+	return Opinion.objects.create(vote=vote,question=question,country_code=u'US',region=region)
 
 
 class QuestionMethodTests(TestCase):
@@ -104,6 +104,27 @@ class QuestionMethodTests(TestCase):
 		with self.assertRaises(KeyError):
 			votes[Opinion.AGREE]
 
+	def test_get_json_friendly_usa_state_counts(self):
+		"""
+		Test that the result of the json is aggregated by state correctly and 
+		by votes so that we get back a list of items who specify state and totals
+		"""
+
+		question = create_question("Test Aggregation", create_category("test"))
+		states = ['VT','NH','MA','TX','GA','CA','WA','NC']
+		for region in states:
+			for opinion in Opinion.OPINIONS:
+				create_opinion(opinion[0], question, region )
+
+		results = question.get_json_friendly_usa_state_counts()
+		#Assert key structure and that there are states.length items, with 1 vote each
+		self.assertEqual(len(results), len(states))
+		for result in results:
+			self.assertTrue(result.get('totals'))
+			totals = result.get('totals')
+			self.assertEqual(len(totals), len(Opinion.OPINIONS))
+			for vote in totals:
+				self.assertEqual(vote.get('votes'), 1)
 
 
 class OpinionMethodTests(TestCase):

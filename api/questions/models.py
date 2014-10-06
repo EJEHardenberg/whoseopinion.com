@@ -3,6 +3,10 @@ from django.utils import timezone
 from django.db import models
 from django.db.models import Count
 
+"""For use with custom aggregations that don't fit into a model well"""
+from django.db import connection
+
+
 MAX_POPULAR=10
 
 class Category(models.Model):
@@ -89,8 +93,26 @@ class Question(models.Model):
 		return outputList
 
 	def get_json_friendly_usa_state_counts(self):
-		#todo. aggregate totals by state/country
-		return []
+		counts = []
+		with connection.cursor() as cursor:
+			query = 'SELECT count(*),vote, country_code,region FROM questions_opinion WHERE question_id = %s GROUP BY country_code,region,vote ORDER BY region'
+			cursor.execute(query,[self.id])
+			tmp = {}
+			for row in cursor:
+				k = "%s-%s" % (row[2], row[3])
+				opData = {
+					"votes" : row[0], 
+					"name" : Opinion.vote_string(row[1])
+				}
+				if tmp.get(k):
+					tmp.get(k).get('totals').append(opData)
+				else:
+					tmp[k] = {
+						"state" : k,
+						"totals" : [ opData ]
+					}
+			counts = tmp.values()
+		return counts
 
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
