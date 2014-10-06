@@ -120,6 +120,10 @@ class Opinion(models.Model):
 	#null and blank is true since we need to validate with a serializer and will
 	#set the value serverside anyway
 
+	country_code = models.CharField(max_length=8, blank=False, null=False)
+
+	region = models.CharField(max_length=8, blank=False, null=False)
+
 	def __unicode__(self):
 		return Opinion.vote_string(self.vote)
 
