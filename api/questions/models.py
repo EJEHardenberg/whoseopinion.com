@@ -88,6 +88,10 @@ class Question(models.Model):
 			outputList.append({"name" : Opinion.vote_string(key), "votes" : output[Opinion.vote_string(key)] })
 		return outputList
 
+	def get_json_friendly_usa_state_counts(self):
+		#todo. aggregate totals by state/country
+		return []
+
 	#Admin Settings
 	get_human_opinion_counts.short_description = 'Opinion Vote Count'
 

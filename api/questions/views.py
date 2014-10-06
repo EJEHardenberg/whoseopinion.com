@@ -52,7 +52,8 @@ class OpinionList(APIView):
 		question = get_object_or_404(Question, pk=question_pk)
 		output = {}
 		totals =  question.get_json_friendly_counts()
-		output['states'] = [] #TODO
+
+		output['states'] = question.get_json_friendly_usa_state_counts()
 		output['totals'] = totals
 		content = JSONRenderer().render(output)
 		return Response(content)

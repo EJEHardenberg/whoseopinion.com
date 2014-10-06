@@ -41,7 +41,7 @@ function showMap($){
 			chartContainer.node().appendChild(svgNode)
 
 			var innerSVG = d3.select("svg");
-			innerSVG.attr('height', chartContainer.attr('height'))
+			  innerSVG.attr('height', chartContainer.attr('height'))
 
 			var paths = innerSVG.selectAll("path")
 			
