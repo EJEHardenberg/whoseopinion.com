@@ -51,7 +51,7 @@ class OpinionList(APIView):
 		question = get_object_or_404(Question, pk=question_pk)
 		output = {}
 		totals =  question.get_json_friendly_counts()
-		output['states'] = []
+		output['states'] = [] #TODO
 		output['totals'] = totals
 		content = JSONRenderer().render(output)
 		return Response(content)
@@ -71,6 +71,8 @@ class OpinionList(APIView):
 		questionIdsMatch = int(question_pk) == int(request.DATA['question'])
 		if serializer.is_valid() and questionIdsMatch and ip:
 			serializer.object.ip_addr = ip
+			#Retrieve information for the objects IP adress
+			
 			serializer.save()
 			return Response(serializer.data, status=status.HTTP_201_CREATED)
 
