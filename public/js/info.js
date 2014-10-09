@@ -142,19 +142,25 @@ function showMap($){
 			])
 
 		voteChart.attr("height", barHeight * data.totals.length)
+		var votesXFunc = function(d) { return x(d.votes); }	
 
 		/* Grab all groups and define how data will be transformed when entering */
-		var bar = voteChart.selectAll("g")
-      		  .data(data.totals)
-    		.enter()
+		var bar = voteChart.selectAll("g").data(data.totals)
+		var duration = 1000
+
+    	bar.enter()
     		  .append("g")
-      		  	.attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })
+      		  	.attr("transform", function(d, i) { return "translate(0," + i * barHeight + ")"; })      	
 
       	/* For each bar we're going to add a rectangle ... */
       	bar.append("rect")
-      		.attr("width", function(d) { return x(d.votes); })
+      	.attr("class", function(d){ return "vote vote-" + d.name.replace(" ","-") } )
       		.attr("height", barHeight - 1)
-      		.attr("class", function(d){ return "vote vote-" + d.name.replace(" ","-") } )
+      		.attr("width", 0)
+      		.transition().duration(duration).attr('width', votesXFunc)
+      		.attr("width", votesXFunc)
+      		
+      		
 
       	/* and we'll label it with it's # of votes */
       	bar.append("text")
