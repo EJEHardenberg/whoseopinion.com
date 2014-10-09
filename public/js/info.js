@@ -5,7 +5,7 @@ jQuery(document).ready(function($) {
 function showMap($){
 	//dummy data for how it will be
 	var data = {
-		"totals" : [
+		"states" : [
 			{'majority': 'Inconclusive', 'state': 'US-WA', 'totals': [
 				{'votes': 1, 'name': 'Strongly Disagree'}, 
 				{'votes': 1, 'name': 'Disagree'}, 
@@ -46,10 +46,10 @@ function showMap($){
 				{'votes': 1, 'name': 'Strongly Agree'}
 				]
 			}, 
-			{'majority': 'Inconclusive', 'state': 'US-NH', 'totals': [
+			{'majority': 'Neutral', 'state': 'US-NH', 'totals': [
 				{'votes': 1, 'name': 'Strongly Disagree'}, 
 				{'votes': 1, 'name': 'Disagree'}, 
-				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 2, 'name': 'Neutral'}, 
 				{'votes': 1, 'name': 'Agree'}, 
 				{'votes': 1, 'name': 'Strongly Agree'}
 				]
@@ -62,21 +62,21 @@ function showMap($){
 				{'votes': 1, 'name': 'Strongly Agree'}
 				]
 			}, 
-			{'majority': 'Inconclusive', 'state': 'US-NC', 'totals': [
+			{'majority': 'Strongly Agree', 'state': 'US-NC', 'totals': [
 				{'votes': 1, 'name': 'Strongly Disagree'}, 
 				{'votes': 1, 'name': 'Disagree'}, 
-				{'votes': 1, 'name': 'Neutral'}, 
+				{'votes': 2, 'name': 'Neutral'}, 
 				{'votes': 1, 'name': 'Agree'}, 
-				{'votes': 1, 'name': 'Strongly Agree'}
+				{'votes': 7, 'name': 'Strongly Agree'}
 				]
 			}
 		],
-		"states" : [
+		"totals" : [
 			{"votes" : 2, "name" : "Strongly Agree",	"state" : "US-AK"},
 			{"votes" : 1, "name" : "Agree",				"state" : "US-VT"},
 			{"votes" : 4, "name" : "Neutral",			"state" : "US-NH"},
 			{"votes" : 1, "name" : "Disagree",			"state" : "US-CA"},
-			{"votes" : 3, "name" : "Strongly Disagree", "state" : "US-TX"}
+			{"votes" : 9, "name" : "Strongly Disagree", "state" : "US-TX"}
 		]
 	}
 
@@ -109,12 +109,17 @@ function showMap($){
 				return (d && d.state) || d3.select(this).attr("id")
 			})
 
+
 			joined.attr("class", function(d){		
 				if( typeof d == "undefined" ){
 					return "land"
 				}
-				return "vote-" + d.name.replace(" ", "-")	
+				return "vote-" + d.majority.replace(" ", "-")	
 			})
+
+			/* If we want to use the number of votes for each state to do something
+			 * then we should do it here
+			*/
 
 		})
 
