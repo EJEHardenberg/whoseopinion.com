@@ -101,6 +101,7 @@ function showMap($){
 
 			var innerSVG = d3.select("svg");
 			  innerSVG.attr('height', chartContainer.attr('height'))
+			  innerSVG.attr('width', chartContainer.attr('width'))
 
 			var paths = innerSVG.selectAll("path")
 			
