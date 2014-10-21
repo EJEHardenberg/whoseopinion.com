@@ -42,7 +42,7 @@ jQuery( document ).ready(function( $ ) {
 		evt.preventDefault()
 		var data = {'question' : parseInt($(this).find('[name=question]').val()), 'vote' : parseInt($(this).find('[name=opinion]:checked').val()) }
 		console.debug("Data Submit", data)
-		
+
 		$.ajax({
 			data: JSON.stringify(data),
 			url: $(this).attr('action'),
@@ -68,6 +68,7 @@ jQuery( document ).ready(function( $ ) {
 					html: $(this).find('[rel=success]').html()
 				})
 				setTimeout($.colorbox.close,1250)
+				btn.remove()
 			},
 			error: function(){
 				alert("There was a problem submitting your form")
