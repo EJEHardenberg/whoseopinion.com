@@ -40,9 +40,9 @@ jQuery( document ).ready(function( $ ) {
 	$(document).on('submit','form[name=question]',function(evt){
 		/* Submit Question via AJAX so that we don't lose the page. */
 		evt.preventDefault()
-		console.debug("Form Submit", $(this).serialize())
-		var data = {'question' : parseInt($(this).find('[name=question]').val()), 'vote' : parseInt($(this).find('[name=opinion]').val()) }
-
+		var data = {'question' : parseInt($(this).find('[name=question]').val()), 'vote' : parseInt($(this).find('[name=opinion]:checked').val()) }
+		console.debug("Data Submit", data)
+		
 		$.ajax({
 			data: JSON.stringify(data),
 			url: $(this).attr('action'),
