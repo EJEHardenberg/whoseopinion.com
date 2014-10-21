@@ -1,5 +1,5 @@
 from django.contrib import admin
-from questions.models import Question, Category
+from questions.models import Question, Category, Opinion
 
 class QuestionAdmin(admin.ModelAdmin):
 	fieldsets = [
@@ -12,3 +12,4 @@ class QuestionAdmin(admin.ModelAdmin):
 
 admin.site.register(Category)
 admin.site.register(Question, QuestionAdmin)
+#admin.site.register(Opinion)
